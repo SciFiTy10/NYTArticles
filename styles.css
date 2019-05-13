@@ -47,8 +47,10 @@ h1{
   flex-direction: column;
   width: 200px;
   /*margin-left: 100% - 250px;*/
+  width: calc(100% - 300px);
   margin-left: 250px;
-  /*width: calc(100% - 250px);*/
+  margin-right: 250px;
+
   /*margin-bottom: 40px;*/
   position: fixed;
   border-style: groove;
