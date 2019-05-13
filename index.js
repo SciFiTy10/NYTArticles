@@ -21,7 +21,7 @@ Vue.component('dropdown', {
   `<div class="dropdown">
     <button class="dropbtn">{{ dropdownLabel }}</button>
     <div class="dropdown-content">
-      <a href="#" v-for="c in content">{{ c.message }}</a>
+      <a href="#" v-for="c in content">{{ c.text }}</a>
     </div>
    </div>`,
    //set my text in data function so it can be reactive
@@ -29,9 +29,9 @@ Vue.component('dropdown', {
      return {
        dropdownLabel: 'Select a time period',
        content: [
-         { message: 'Yesterday' },
-         { message: 'Last 7 Days' },
-         { message: 'Last 30 Days' }
+         { text: 'Yesterday' },
+         { text: 'Last 7 Days' },
+         { text: 'Last 30 Days' }
        ]
      }
    }
