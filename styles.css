@@ -21,10 +21,13 @@ h1{
   padding: 10px;
 }
 
+/*this flexbox will be vertical and handles the time dropdown and filter section*/
 #time-and-filters{
   display: flex;
   flex-direction: column;
   width: 200px;
+  margin-left: 25px;
+  margin-bottom: 40px;
 }
 
 /* Dropdown Button */
@@ -81,11 +84,13 @@ h1{
 
 /*START OF FILTER SECTION*/
 
+/*header for the filter section*/
 h3{
     text-align: center;
     color: white;
 }
 
+/*parent container for the filter section*/
 .filter-container{
   position: relative;
   display: inline-block;
@@ -93,8 +98,10 @@ h3{
   border-color: #FFD700;
   margin-top: 150px;
   background-color: #008080;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
+/*main area filter section*/
 .filter-main{
   background-color: white;
   padding-top: 20px;
@@ -104,7 +111,6 @@ h3{
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 10px;
-
 }
 
 /*This is where the checkbox specific container goes*/
@@ -150,7 +156,7 @@ h3{
   background-color: #FFD700;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a teal background */
 .filter-checkbox input:checked ~ .checkmark {
   background-color: #008080;
 }

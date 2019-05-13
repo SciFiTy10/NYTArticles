@@ -37,19 +37,12 @@ Vue.component('dropdown', {
    }
 })
 
-//component for the dropdown
+//component for the filter section
 Vue.component('section-filter', {
   template:
-  //dropdown parent element, button and content as children
+  //filter parent container, filter-main area, and filter-checkbox container as children
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
-  /*
-  <label class="container">One
-    <input type="checkbox" checked="checked">
-    <span class="checkmark"></span>
-  </label>
-  */
-
   `<div class="filter-container">
     <h3>{{ header }}</h3>
     <div class="filter-main">
