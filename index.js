@@ -15,14 +15,25 @@ Vue.component('navbar', {
 //component for the dropdown
 Vue.component('dropdown', {
   template:
+  //dropdown parent element, button and content as children
+  //used tick marks so I could write on multiple lines
   `<div class="dropdown">
-    <button class="dropbtn">Select a time period</button>
+    <button class="dropbtn">{{ dropdownLabel }}</button>
     <div class="dropdown-content">
-      <a href="#">Yesterday</a>
-      <a href="#">Last 7 Days</a>
-      <a href="#">Last 30 Days</a>
+      <a href="#">{{ yesterday }}</a>
+      <a href="#">{{ last7Days }}</a>
+      <a href="#">{{ last30Days }}</a>
     </div>
-   </div>`
+   </div>`,
+   //set my text in data function so it can be reactive
+   data: function() {
+     return {
+       dropdownLabel: 'Select a time period',
+       yesterday: 'Yesterday',
+       last7Days: 'Last 7 Days',
+       last30Days: 'Last 30 Days'
+     }
+   }
 })
 
 //create a new Vue instance

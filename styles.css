@@ -1,15 +1,20 @@
+/*navbar style*/
 #navbar{
   background-color: #008080;
+  /*fix this in place/remove from normal flow*/
   position: fixed;
+  /*spread across entire view*/
   width: 100%;
   margin:0;
   height: 50px;
+  /*border style must be defined before color will take*/
   border-style: groove;
+  /*set overall color as teal, and then set bottom to gold*/
+  /*this saved me from going top, left, right = teal*/
   border-color: #008080;
   border-bottom-color: #FFD700;
-  /*border-bottom-color: #FFD700;*/
 }
-
+/*header style*/
 h1{
   margin: 0;
   color: white;
@@ -36,6 +41,7 @@ h1{
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+  /*hidden for now*/
   display: none;
   position: absolute;
   background-color: #f1f1f1;
