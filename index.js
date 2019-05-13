@@ -12,7 +12,7 @@ Vue.component('navbar', {
   //header text is in component so it can be reactive
   data: function() {
     return {
-      header: 'Hello from Vue data!'
+      header: 'Welcome to the NYT Articles App!'
     }
   }
 })

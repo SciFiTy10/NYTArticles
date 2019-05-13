@@ -1,9 +1,10 @@
 #navbar{
-  background-color: red;
+  background-color: #008080;
   position: fixed;
   width: 100%;
   margin:0;
   height: 50px;
+  /*border-bottom-color: #FFD700;*/
 }
 
 h1{
@@ -15,4 +16,5 @@ h1{
 
 body{
     margin:0;
+    background-color: #ffffff;
 }
