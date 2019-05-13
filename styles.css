@@ -139,7 +139,10 @@ h3{
   /*height: 25px;*/
   height: 100%;
   width: 25px;
-  background-color: #eee;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #ffffff;
 }
 
 /* On mouse-over, add a gold background color */
@@ -149,7 +152,7 @@ h3{
 
 /* When the checkbox is checked, add a blue background */
 .filter-checkbox input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #008080;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

@@ -54,7 +54,7 @@ Vue.component('section-filter', {
     <h3>{{ header }}</h3>
     <div class="filter-main">
       <label class="filter-checkbox" v-for="c in content">{{ c.text }}
-        <input type="checkbox" checked="checked">
+        <input type="checkbox">
         <span class="checkmark"></span>
       </label>
     </div>
