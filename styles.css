@@ -49,15 +49,18 @@ h1{
   /*margin-left: 100% - 250px;*/
   margin-left: 250px;
   /*width: calc(100% - 250px);*/
-  margin-bottom: 40px;
-  /*border-style: groove;
-  border-color: red;*/
+  /*margin-bottom: 40px;*/
+  position: fixed;
+  border-style: groove;
+  border-color: blue;
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
+  border-style: groove;
+  border-color: red;
 }
 
 /* Dropdown Button */
@@ -210,7 +213,12 @@ h3{
   transform: rotate(45deg);
 }
 
-
+/*START OF THE RIGHT SIDE*/
+.graph-container{
+    margin-top: 25px;
+    border-style: groove;
+    border-color: pink;
+}
 
 body{
     margin:0;
