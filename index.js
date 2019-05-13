@@ -15,14 +15,58 @@ Vue.component('navbar', {
 //component for the dropdown
 Vue.component('dropdown', {
   template:
+  //dropdown parent element, button and content as children
+  //used tick marks so I could write on multiple lines
+  //v-for is used so I can loop through content array in data
   `<div class="dropdown">
-    <button class="dropbtn">Select a time period</button>
+    <button class="dropbtn">{{ dropdownLabel }}</button>
     <div class="dropdown-content">
-      <a href="#">Yesterday</a>
-      <a href="#">Last 7 Days</a>
-      <a href="#">Last 30 Days</a>
+      <a href="#" v-for="c in content">{{ c.text }}</a>
     </div>
-   </div>`
+   </div>`,
+   //set my text in data function so it can be reactive
+   data: function() {
+     return {
+       dropdownLabel: 'Select a time period',
+       content: [
+         { text: 'Yesterday' },
+         { text: 'Last 7 Days' },
+         { text: 'Last 30 Days' }
+       ]
+     }
+   }
+})
+
+//component for the filter section
+Vue.component('section-filter', {
+  template:
+  //filter parent container, filter-main area, and filter-checkbox container as children
+  //used tick marks so I could write on multiple lines
+  //v-for is used so I can loop through content array in data
+  `<div class="filter-container">
+    <h3>{{ header }}</h3>
+    <div class="filter-main">
+      <label class="filter-checkbox" v-for="c in content">{{ c.text }}
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+   </div>`,
+
+   //set my text in data function so it can be reactive
+   data: function() {
+     return {
+       header: 'Choose your sections',
+       content: [
+         { text: 'Health' },
+         { text: 'Magazine' },
+         { text: 'Opinion' },
+         { text: 'Smarter Living' },
+         { text: 'U.S.' },
+         { text: 'World' }
+       ]
+     }
+   }
 })
 
 //create a new Vue instance
