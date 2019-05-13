@@ -51,7 +51,10 @@ Vue.component('section-filter', {
   */
 
   `<div class="filter-container">
-    <h2>{{ header }}</h2>
+    <h3>{{ header }}</h3>
+    <div class="filter-main">
+      <label class="filter-main">One
+    </div>
    </div>`,
 
    //set my text in data function so it can be reactive

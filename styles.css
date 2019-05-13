@@ -25,8 +25,6 @@ h1{
   display: flex;
   flex-direction: column;
   width: 200px;
-  border-style: solid;
-  border-color: #FFD700;
 }
 
 /* Dropdown Button */
@@ -81,12 +79,22 @@ h1{
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #000000;}
 
+h3{
+    text-align: center;
+    color: white;
+}
+
 .filter-container{
   position: relative;
   display: inline-block;
   border-style: groove;
   border-color: #FFD700;
   margin-top: 150px;
+  background-color: #008080;
+}
+
+.filter-main{
+  background-color: white;
 }
 
 
