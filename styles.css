@@ -97,10 +97,14 @@ h3{
 
 .filter-main{
   background-color: white;
+  padding-top: 20px;
+  padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 5px;
   margin-right: 5px;
+  margin-bottom: 10px;
+
 }
 
 /*This is where the checkbox specific container goes*/
@@ -111,7 +115,7 @@ h3{
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
