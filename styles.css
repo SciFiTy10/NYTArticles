@@ -4,6 +4,9 @@
   width: 100%;
   margin:0;
   height: 50px;
+  border-style: groove;
+  border-color: #008080;
+  border-bottom-color: #FFD700;
   /*border-bottom-color: #FFD700;*/
 }
 
@@ -21,6 +24,8 @@ h1{
   font-size: 16px;
   border: none;
   margin-top: 100px;
+  border-style: groove;
+  border-color: #FFD700;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -46,6 +51,9 @@ h1{
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #FFD700;
 }
 
 /* Change color of dropdown links on hover */
