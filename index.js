@@ -69,15 +69,30 @@ Vue.component('section-filter', {
    }
 })
 
+//component for the graph section
+Vue.component('graph', {
+  template:
+  //filter parent container, filter-main area, and filter-checkbox container as children
+  //used tick marks so I could write on multiple lines
+  //v-for is used so I can loop through content array in data
+  `<div class="graph-container">
+    <h3>{{ header }}</h3>
+    <canvas id = "viewGraph" width="1600" height="900"></canvas>
+   </div>`,
+
+   //set my text in data function so it can be reactive
+   data: function() {
+     return {
+       header: 'Choose your sections'
+     }
+   }
+})
+
 //create a new Vue instance
 var app = new Vue({
   //point to the main div
   el: '#app',
   data: {
-    results: []
-  },
-  mounted() {
-    axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=hmNzQpMlkLSsTGvnR8tpAOmibGDHwicU")
-    .then(response => {this.results = response.data.results})
+    message: "Hey Vue"
   }
 })
