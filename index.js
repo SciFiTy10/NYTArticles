@@ -53,7 +53,10 @@ Vue.component('section-filter', {
   `<div class="filter-container">
     <h3>{{ header }}</h3>
     <div class="filter-main">
-      <label class="filter-main">One
+      <label class="filter-checkbox">One
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+      </label>
     </div>
    </div>`,
 
