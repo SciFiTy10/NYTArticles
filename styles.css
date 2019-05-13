@@ -79,12 +79,12 @@ h1{
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #000000;}
 
+/*START OF FILTER SECTION*/
+
 h3{
     text-align: center;
     color: white;
 }
-
-/*START OF FILTER SECTION*/
 
 .filter-container{
   position: relative;
@@ -97,6 +97,8 @@ h3{
 
 .filter-main{
   background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /*This is where the checkbox specific container goes*/
