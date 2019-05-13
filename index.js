@@ -44,7 +44,7 @@ Vue.component('section-filter', {
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
   `<div class="filter-container">
-    <h3>{{ header }}</h3>
+    <h3 id="filter-header">{{ header }}</h3>
     <div class="filter-main">
       <label class="filter-checkbox" v-for="c in content">{{ c.text }}
         <input type="checkbox">
