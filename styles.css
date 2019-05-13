@@ -21,6 +21,11 @@ h1{
   padding: 10px;
 }
 
+/*this section holds the left and right sides as children*/
+#main-area{
+  display: flex;
+}
+
 /*this flexbox will be vertical and handles the time dropdown and filter section*/
 #time-and-filters{
   display: flex;
@@ -28,6 +33,21 @@ h1{
   width: 200px;
   margin-left: 25px;
   margin-bottom: 40px;
+  border-style: groove;
+  border-color: black;
+  position: fixed;
+}
+/*this flexbox is vertical and handles the graph and articles sections*/
+#graph-and-articles{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  /*margin-left: 100% - 250px;*/
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  margin-bottom: 40px;
+  border-style: groove;
+  border-color: red;
 }
 
 /* Dropdown Button */
@@ -185,6 +205,8 @@ h3{
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+
 
 body{
     margin:0;
