@@ -25,6 +25,8 @@ h1{
   display: flex;
   flex-direction: column;
   width: 200px;
+  border-style: solid;
+  border-color: #FFD700;
 }
 
 /* Dropdown Button */
@@ -84,6 +86,7 @@ h1{
   display: inline-block;
   border-style: groove;
   border-color: #FFD700;
+  margin-top: 150px;
 }
 
 
