@@ -16,11 +16,11 @@ Vue.component('navbar', {
 Vue.component('dropdown', {
   template:
   `<div class="dropdown">
-    <button class="dropbtn">Dropdown</button>
+    <button class="dropbtn">Select a time period</button>
     <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+      <a href="#">Yesterday</a>
+      <a href="#">Last 7 Days</a>
+      <a href="#">Last 30 Days</a>
     </div>
    </div>`
 })
