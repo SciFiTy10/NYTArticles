@@ -216,6 +216,16 @@ h1{
 }
 
 /*START OF THE RIGHT SIDE*/
+#graph-header{
+    text-align: center;
+}
+
+#graph-subHeader{
+    text-align: center;
+    color: grey;
+    font-style: italic;
+}
+
 .graph-container{
     margin-top: 25px;
     border-style: groove;
