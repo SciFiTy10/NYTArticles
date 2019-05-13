@@ -53,7 +53,7 @@ Vue.component('section-filter', {
   `<div class="filter-container">
     <h3>{{ header }}</h3>
     <div class="filter-main">
-      <label class="filter-checkbox">One
+      <label class="filter-checkbox" v-for="c in content">{{ c.text }}
         <input type="checkbox" checked="checked">
         <span class="checkmark"></span>
       </label>
@@ -65,9 +65,12 @@ Vue.component('section-filter', {
      return {
        header: 'Choose your sections',
        content: [
-         { text: 'Yesterday' },
-         { text: 'Last 7 Days' },
-         { text: 'Last 30 Days' }
+         { text: 'Health' },
+         { text: 'Magazine' },
+         { text: 'Opinion' },
+         { text: 'Smarter Living' },
+         { text: 'U.S.' },
+         { text: 'World' }
        ]
      }
    }
