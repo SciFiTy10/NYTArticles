@@ -74,6 +74,10 @@ var app = new Vue({
   //point to the main div
   el: '#app',
   data: {
-    message: 'Hello Vue!'
+    results: []
+  },
+  mounted() {
+    axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=your_api_key")
+    .then(response => {this.results = response.data.results})
   }
 })
