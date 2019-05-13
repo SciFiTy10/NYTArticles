@@ -24,6 +24,10 @@ h1{
 /*this section holds the left and right sides as children*/
 #main-area{
   display: flex;
+  /*border-style: groove;
+  border-color: blue;*/
+  position: fixed;
+  margin-top: 50px;
 }
 
 /*this flexbox will be vertical and handles the time dropdown and filter section*/
@@ -32,7 +36,7 @@ h1{
   flex-direction: column;
   width: 200px;
   margin-left: 25px;
-  margin-bottom: 40px;
+  /*margin-bottom: 40px;*/
   border-style: groove;
   border-color: black;
   position: fixed;
@@ -44,10 +48,16 @@ h1{
   width: 200px;
   /*margin-left: 100% - 250px;*/
   margin-left: 250px;
-  width: calc(100% - 250px);
+  /*width: calc(100% - 250px);*/
   margin-bottom: 40px;
-  border-style: groove;
-  border-color: red;
+  /*border-style: groove;
+  border-color: red;*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 /* Dropdown Button */
@@ -57,16 +67,10 @@ h1{
   padding: 16px;
   font-size: 16px;
   border: none;
-  margin-top: 100px;
+  margin-top: 25px;
   border-style: groove;
   border-color: #FFD700;
   width: 100%;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
 }
 
 /* Dropdown Content (Hidden by Default) */
