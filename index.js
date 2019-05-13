@@ -77,7 +77,7 @@ var app = new Vue({
     results: []
   },
   mounted() {
-    axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=your_api_key")
+    axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=hmNzQpMlkLSsTGvnR8tpAOmibGDHwicU")
     .then(response => {this.results = response.data.results})
   }
 })
