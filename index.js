@@ -26,11 +26,6 @@ Vue.component('dropdown', {
       <a href="#" v-for="c in content">{{ c.text }}</a>
     </div>
    </div>`,
-   methods: {
-      changeTitle: function(){
-
-      }
-   },
    //set my text in data function so it can be reactive
    data: function() {
      return {
@@ -149,13 +144,16 @@ Vue.component('graph', {
 
       },//end of mounted function
 
+
+    
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Most Popular NYT Articles the Last ___ Days',
+       header: 'Most Popular NYT Articles of the Last ',
        subHeader: 'Health / Opinion / U.S.'
      }//end of return
    }//end of data
+
 })//end of component
 
 //component for the top-news
@@ -192,8 +190,8 @@ var app = new Vue({
   el: '#app',
   data () {
     return {
-      info: null,
-      days: 1
+      info: null
+
     }
   },
   mounted () {
