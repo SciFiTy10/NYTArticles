@@ -80,7 +80,7 @@ Vue.component('graph', {
   `<div class="graph-container">
     <h3 id="graph-header">{{ header }}</h3>
     <h4 id="graph-subHeader">{{ subHeader }}</h4>
-    <canvas id = "viewGraph" width="1600" height="900"></canvas>
+    <canvas id = "viewGraph"></canvas>
    </div>`,
 
    //start of mounted
@@ -113,6 +113,8 @@ Vue.component('graph', {
          }]
        },
        options: {
+         responsive: true,
+         maintainAspectRatio: false,
          scales: {
            yAxes: [{
              ticks: {
