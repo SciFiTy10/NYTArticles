@@ -80,7 +80,7 @@ Vue.component('graph', {
   `<div class="graph-container">
     <h3 id="graph-header">{{ header }}</h3>
     <h4 id="graph-subHeader">{{ subHeader }}</h4>
-    <canvas id = "viewGraph" width="1600" height="900"></canvas>
+    <canvas id = "viewGraph"></canvas>
    </div>`,
 
    //start of mounted
@@ -113,12 +113,31 @@ Vue.component('graph', {
          }]
        },
        options: {
+         responsive: true,
+         maintainAspectRatio: false,
          scales: {
            yAxes: [{
              ticks: {
                   beginAtZero: true
-                }
-              }]//end of yAxes
+                },
+                scaleLabel: {
+                  display: true,
+                  fontStyle: "bold",
+                  fontColor: 'black',
+                  fontSize: 20,
+                  labelString: 'Views'
+                }//end of scaleLabel
+              }],//end of yAxes
+
+            xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  fontStyle: "bold",
+                  fontColor: 'black',
+                  fontSize: 20,
+                  labelString: 'Section'
+                }//end of scaleLabel
+              }]//end of xAxes
             }//end of scales
           }//end of options
         });//end of chart instance
@@ -135,22 +154,28 @@ Vue.component('graph', {
 })//end of component
 
 //component for the top-news
-Vue.component('top-news', {
+Vue.component('best-of-section', {
   template:
   //dropdown parent element, button and content as children
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
-  `<div class="top-news-container">
-      
+  `<div class="best-of-section-container">
+      <h3 id ="best-of-section-header">{{ header }}</h3>
+      <table>
+        <tr>
+          <th v-for="c in content">{{ c.text }}</th>
+        </tr>
+      </table>
    </div>`,
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       dropdownLabel: 'Select a time period',
+       header: 'Best Articles by Section for the last _____days',
        content: [
-         { text: 'Yesterday' },
-         { text: 'Last 7 Days' },
-         { text: 'Last 30 Days' }
+         { text: 'Title' },
+         { text: 'Views' },
+         { text: 'Section' },
+         { text: 'Link' }
        ]
      }
    }
