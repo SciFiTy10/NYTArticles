@@ -119,8 +119,25 @@ Vue.component('graph', {
            yAxes: [{
              ticks: {
                   beginAtZero: true
-                }
-              }]//end of yAxes
+                },
+                scaleLabel: {
+                  display: true,
+                  fontStyle: "bold",
+                  fontColor: 'black',
+                  fontSize: 20,
+                  labelString: 'Views'
+                }//end of scaleLabel
+              }],//end of yAxes
+
+            xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  fontStyle: "bold",
+                  fontColor: 'black',
+                  fontSize: 20,
+                  labelString: 'Section'
+                }//end of scaleLabel
+              }]//end of xAxes
             }//end of scales
           }//end of options
         });//end of chart instance
