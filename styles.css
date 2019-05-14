@@ -28,6 +28,10 @@ h1{
   border-color: blue;*/
   position: fixed;
   margin-top: 50px;
+  width: 100%;
+  height: 100%;
+  border-style: groove;
+  border-color: brown;
 }
 
 /*this flexbox will be vertical and handles the time dropdown and filter section*/
@@ -40,19 +44,20 @@ h1{
   border-style: groove;
   border-color: black;
   position: fixed;
+
 }
 /*this flexbox is vertical and handles the graph and articles sections*/
 #graph-and-articles{
   display: flex;
   flex-direction: column;
-  width: 200px;
+  /*width: 200px;*/
   /*margin-left: 100% - 250px;*/
   width: calc(100% - 300px);
   margin-left: 250px;
   margin-right: 250px;
-
+  height: calc(100% - 60px);
   /*margin-bottom: 40px;*/
-  position: fixed;
+  /*position: fixed;*/
   border-style: groove;
   border-color: blue;
 }
@@ -61,8 +66,8 @@ h1{
 .dropdown {
   position: relative;
   display: inline-block;
-  border-style: groove;
-  border-color: red;
+  /*border-style: groove;
+  border-color: red;*/
 }
 
 /* Dropdown Button */
@@ -233,14 +238,14 @@ h1{
     /*Testing*/
     max-width: 400px;
     max-height: 200px;
-    margin: 50px auto;
+    /*margin: 50px auto;*/
 }
 
 .best-of-section-container{
   position: relative;
   display: inline-block;
-  border-style: groove;
-  border-color: orange;
+  /*border-style: groove;
+  border-color: orange;*/
   /*margin-top: 150px;
   background-color: #008080;*/
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
