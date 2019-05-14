@@ -186,6 +186,16 @@ var app = new Vue({
   //point to the main div
   el: '#app',
   data: {
-    message: "Hey Vue"
+    results: []
+  },
+  mounted() {
+    axios.get("https://api.nytimes.com/svc/topstories/v2/viewed/7.json?api-key=hmNzQpMlkLSsTGvnR8tpAOmibGDHwicU")
+    .then(response => {this.results = response.data.results})
   }
+  /*
+  data: {
+    results: []
+  }*/
 })
+
+console.log(app.results);
