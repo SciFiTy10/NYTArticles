@@ -26,12 +26,17 @@ Vue.component('dropdown', {
       <a href="#" v-for="c in content">{{ c.text }}</a>
     </div>
    </div>`,
+   methods: {
+      changeTitle: function(){
+
+      }
+   },
    //set my text in data function so it can be reactive
    data: function() {
      return {
        dropdownLabel: 'Select a time period',
        content: [
-         { text: 'Yesterday' },
+         { text: 'Last 1 Days' },
          { text: 'Last 7 Days' },
          { text: 'Last 30 Days' }
        ]
@@ -185,17 +190,23 @@ Vue.component('best-of-section', {
 var app = new Vue({
   //point to the main div
   el: '#app',
-  data: {
-    results: []
+  data () {
+    return {
+      info: null,
+      days: 1
+    }
   },
-  mounted() {
-    axios.get("https://api.nytimes.com/svc/topstories/v2/viewed/7.json?api-key=hmNzQpMlkLSsTGvnR8tpAOmibGDHwicU")
-    .then(response => {this.results = response.data.results})
+  mounted () {
+    axios
+
+      //.get('https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+      .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+      //.then(response => (this.info = response))
+      .then(response => console.log(response))
+
   }
   /*
   data: {
     results: []
   }*/
 })
-
-console.log(app.results);
