@@ -89,7 +89,12 @@ Vue.component('graph', {
        mounted: function(){
          const ctx = document.getElementById("winChart");
          const myChart = new Chart(ctx, {
-           
+           //make it a bar graph
+           type: 'bar',
+           //set up the data object for the chart
+           data: {
+
+           }
 
          })//end of chart instance
        }//end of mounted function
