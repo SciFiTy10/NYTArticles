@@ -135,23 +135,18 @@ Vue.component('graph', {
 })//end of component
 
 //component for the top-news
-Vue.component('top-news', {
+Vue.component('best-of-section', {
   template:
   //dropdown parent element, button and content as children
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
-  `<div class="top-news-container">
-      
+  `<div class="best-of-section-container">
+      <h3 id ="best-of-section-header">{{ header }}</h3>
    </div>`,
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       dropdownLabel: 'Select a time period',
-       content: [
-         { text: 'Yesterday' },
-         { text: 'Last 7 Days' },
-         { text: 'Last 30 Days' }
-       ]
+       header: 'Best Articles by Section for the last _____days'
      }
    }
 })
