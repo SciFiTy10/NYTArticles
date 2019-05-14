@@ -237,7 +237,7 @@ h1{
     border-color: pink;
     /*Testing*/
     width: 100%;
-    
+
     /*max-width: 400px;*/
     /*max-height: 200px;*/
     /*margin: 50px auto;*/
@@ -261,6 +261,7 @@ canvas{
 table{
   width: 100%;
 }
+
 
 body{
     margin:0;

@@ -73,12 +73,13 @@ Vue.component('section-filter', {
 
 //component for the graph section
 Vue.component('graph', {
+  props: ['info'],
   template:
   //filter parent container, filter-main area, and filter-checkbox container as children
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
   `<div class="graph-container">
-    <h3 id="graph-header">{{ header }}</h3>
+    <h3 id="graph-header">{{ info }}</h3>
     <h4 id="graph-subHeader">{{ subHeader }}</h4>
     <canvas id = "viewGraph"></canvas>
    </div>`,
@@ -144,12 +145,10 @@ Vue.component('graph', {
 
       },//end of mounted function
 
-
-    
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Most Popular NYT Articles of the Last ',
+       header: 'Most Popular NYT Articles of the ',
        subHeader: 'Health / Opinion / U.S.'
      }//end of return
    }//end of data
@@ -173,7 +172,7 @@ Vue.component('best-of-section', {
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Best Articles by Section for the last _____days',
+       header: 'Best Articles by Section for the ',
        content: [
          { text: 'Title' },
          { text: 'Views' },
@@ -190,21 +189,44 @@ var app = new Vue({
   el: '#app',
   data () {
     return {
-      info: null
-
+      info: '',
+      loading: true,
+      errored: false
     }
   },
   mounted () {
-    axios
 
+    axios
+      .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+      .then(response => {
+        this.info = response.data.results[0].section
+      })
+      .catch(error => {
+        console.log(error)
+        this.errored = true
+      })
+      .finally(() => this.loading = false)
+
+      /*
+      axios
+        //.get('https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+        .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+        //.then(response => (this.info = response))
+        .then(response => {
+          console.log(response.data.results[0])
+          this.info = response.data.results[0]
+        })
+        */
+  }
+
+  /*
+  mounted () {
+    axios
       //.get('https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
       .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
       //.then(response => (this.info = response))
       .then(response => console.log(response))
 
   }
-  /*
-  data: {
-    results: []
-  }*/
+  */
 })

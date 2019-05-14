@@ -9,7 +9,7 @@
   <body>
 
     <div id="app"><!--main div for app -->
-
+      <!--<p>{{ info }}</p>-->
       <navbar></navbar><!--navbar-->
       <div id="main-area"><!--main area below navbar-->
         <div id="time-and-filters"><!--left side for dropdown and filter-section-->
@@ -17,11 +17,13 @@
           <section-filter></section-filter>
         </div>
         <div id="graph-and-articles"><!--right side for graph and articles section-->
-          <graph></graph>
+          <graph v-bind:info="info"></graph>
           <best-of-section></best-of-section>
         </div>
-      </div>
 
+
+
+      </div>
     </div><!--End of app-->
 
     <!-- Vue.js development version -->
