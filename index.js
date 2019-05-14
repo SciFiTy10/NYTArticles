@@ -85,10 +85,18 @@ Vue.component('graph', {
    data: function() {
      return {
        header: 'Most Popular NYT Articles the Last ___ Days',
-       subHeader: 'Health / Opinion / U.S.'
-     }
-   }
-})
+       subHeader: 'Health / Opinion / U.S.',
+       mounted: function(){
+         const ctx = document.getElementById("winChart");
+         const myChart = new Chart(ctx, {
+           
+
+         })//end of chart instance
+       }//end of mounted function
+
+     }//end of return
+   }//end of data
+})//end of component
 
 //create a new Vue instance
 var app = new Vue({
