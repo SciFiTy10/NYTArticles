@@ -145,7 +145,9 @@ Vue.component('best-of-section', {
   `<div class="best-of-section-container">
       <h3 id ="best-of-section-header">{{ header }}</h3>
       <table>
-        <th v-for="c in content">{{ c.text }}</th>
+        <tr>
+          <th v-for="c in content">{{ c.text }}</th>
+        </tr>
       </table>
    </div>`,
    //set my text in data function so it can be reactive
