@@ -144,11 +144,20 @@ Vue.component('best-of-section', {
   //v-for is used so I can loop through content array in data
   `<div class="best-of-section-container">
       <h3 id ="best-of-section-header">{{ header }}</h3>
+      <table>
+        <th v-for="c in content">{{ c.text }}</th>
+      </table>
    </div>`,
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Best Articles by Section for the last _____days'
+       header: 'Best Articles by Section for the last _____days',
+       content: [
+         { text: 'Title' },
+         { text: 'Views' },
+         { text: 'Section' },
+         { text: 'Link' }
+       ]
      }
    }
 })

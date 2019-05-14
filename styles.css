@@ -251,9 +251,14 @@ canvas{
   display: inline-block;
   border-style: groove;
   border-color: orange;
+  height: 100%;
   /*margin-top: 150px;
   background-color: #008080;*/
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.best-of-section-header{
+  text-align: center;
 }
 
 body{
