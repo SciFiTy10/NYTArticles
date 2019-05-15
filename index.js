@@ -197,26 +197,63 @@ var app = new Vue({
     return {
       info: '',
       loading: true,
-      errored: false
+      errored: false,
+      defaultLabels: ['Health', 'Opinion', 'U.S.'],
+      totalViews: []
     }
   },
   created: function(){
     this.loadData();
+    //this.getTotalViews();
   },
   methods: {
+    //for making the default API call
     loadData: function(){
       axios
         .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
         .then(response => {
           //this.info = response.data.results[0].section
           this.info = response.data.results
-          console.log(this.info)
+          console.log(this.info.length)
+          this.getTotalViews(this.info);
         })
         .catch(error => {
           console.log(error)
           this.errored = true
         })
         .finally(() => this.loading = false)
-    }//end of loadData
+    },//end of loadData
+
+    //for pulling the data from the resulting array
+    getTotalViews: function(info){
+        //set total variables to stash before we go into the final data array
+        var totalHealth, totalOpinion, totalUS = 0;
+        console.log('info length is: ' + info.length);
+        //loop through each of the defaultLabels and get their view count
+        for(var i = 0; i < info.length-1; i++){
+            //if this.info[i].section ==
+            switch(info[i].section) {
+              case 'Health':
+              //add to the total
+              totalHealth+=info.views
+              break;
+              case 'Opinion':
+              //add to the total
+              totalOpinion+=info.views
+              break;
+              case 'U.S.':
+              //add to the total
+              totalUS+=info.views
+              break;
+              }
+        }//end of for loop
+        //console.log('total health views: ' + totalHealth);
+        //add these values to the array
+        this.totalViews = [totalHealth, totalOpinion, totalUS];
+
+        console.log(this.totalViews);
+
+    }//end of defaultData
+
   }//end of methods
 })
