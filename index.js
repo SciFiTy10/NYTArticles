@@ -237,34 +237,50 @@ var app = new Vue({
 
     //for pulling the data from the resulting array
     getTotalViews: function(info){
-        //console.log(info);
+        console.log(info);
         //set total variables to stash before we go into the final data array
-        var totalHealth, totalOpinion, totalUS = 0;
+        //originally had this as var totalHealth, totalMagazine, etc = 0 but
+        //it threw undefined issue when I was checking totals
+        var totalHealth = 0;
+        var totalMagazine = 0;
+        var totalOpinion = 0;
+        var totalSmarterLiving = 0;
+        var totalUS = 0;
+        var totalWorld = 0;
         console.log('info length is: ' + info.length);
         //loop through each of the defaultLabels and get their view count
         for(var i = 0; i < info.length-1; i++){
             //if this.info[i].section ==
-            //console.log(info[i].section);
             switch(info[i].section) {
               case 'Health':
               //add to the total
               totalHealth+=info[i].views
               break;
+              case 'Magazine':
+              //add to the total
+              totalMagazine+=info[i].views
+              break;
               case 'Opinion':
               //add to the total
               totalOpinion+=info[i].views
+              break;
+              case 'Smarter Living':
+              //add to the total
+              totalSmarterLiving+=info[i].views
               break;
               case 'U.S.':
               //add to the total
               totalUS+=info[i].views
               break;
+              case 'World':
+              //add to the total
+              totalWorld+=info[i].views
+              break;
               }
         }//end of for loop
         //console.log('total health views: ' + totalHealth);
         //add these values to the array
-        this.totalViews = [totalHealth, totalOpinion, totalUS];
-
-        console.log(this.totalViews);
+        this.totalViews = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
 
     }//end of defaultData
 
