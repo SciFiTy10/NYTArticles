@@ -198,19 +198,30 @@ var app = new Vue({
       info: '',
       loading: true,
       errored: false,
-      defaultLabels: ['Health', 'Opinion', 'U.S.'],
+      labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
       totalViews: []
     }
   },
   created: function(){
-    this.loadData();
+    this.loadData(1, this.labels);
     //this.getTotalViews();
   },
   methods: {
     //for making the default API call
-    loadData: function(){
+    loadData: function(time, labels){
+      //baseURL string
+      const baseURL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/';
+      //timeframe
+      const timeFrame = String(time);
+      //middle middleURL
+      const middleURL = '.json?api-key=';
+      //API key
+      const key = 'snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y';
+
       axios
-        .get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+        .get(baseURL + timeFrame + middleURL + key)
+        //.get('https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+        //.get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
         .then(response => {
           //this.info = response.data.results[0].section
           this.info = response.data.results
@@ -226,24 +237,26 @@ var app = new Vue({
 
     //for pulling the data from the resulting array
     getTotalViews: function(info){
+        //console.log(info);
         //set total variables to stash before we go into the final data array
         var totalHealth, totalOpinion, totalUS = 0;
         console.log('info length is: ' + info.length);
         //loop through each of the defaultLabels and get their view count
         for(var i = 0; i < info.length-1; i++){
             //if this.info[i].section ==
+            //console.log(info[i].section);
             switch(info[i].section) {
               case 'Health':
               //add to the total
-              totalHealth+=info.views
+              totalHealth+=info[i].views
               break;
               case 'Opinion':
               //add to the total
-              totalOpinion+=info.views
+              totalOpinion+=info[i].views
               break;
               case 'U.S.':
               //add to the total
-              totalUS+=info.views
+              totalUS+=info[i].views
               break;
               }
         }//end of for loop
