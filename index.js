@@ -83,81 +83,105 @@ Vue.component('graph', {
     <h4 id="graph-subHeader">{{ subHeader }}</h4>
     <canvas id = "viewGraph"></canvas>
    </div>`,
-   methods: {
-     handleClick: function(text){
-       console.log('this is a message from the graph component')
+   watch:{
+     loaded: function(){
+       
+       if(this.loaded){
+         console.log('check passed');
+         this.drawChart();
+         console.log('drawing chart');
+         console.log('the value of the props is: '+this.data + ' and ' + this.labels);
+       }
+
      }
-   },
+      /*loaded(isLoaded){
+          if(isLoaded){
+              this.drawChart();
+          }
+      }*/
+  },
 
+   //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
+    props: ['labels', 'totalViews', 'loaded'],
+    //set my text in data function so it can be reactive
+    data: function() {
+      return {
+        header: 'Most Popular NYT Articles of the ',
+        subHeader: 'Health / Opinion / U.S.'
+        //dataLabels: this.labels,
+        //views: this.totalViews
+
+      }//end of return
+    },//end of data
+    methods: {
+      drawChart: function(text){
+        //console.log('the value of dataLabels is: '+ this.dataLabels);
+        var ctx = document.getElementById('viewGraph').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: this.dataLabels,
+            datasets: [{
+              label: '# of Views',
+              //data: [12, 19, 3, 5, 2, 3],
+              data: this.views,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                     beginAtZero: true
+                   },
+                   scaleLabel: {
+                     display: true,
+                     fontStyle: "bold",
+                     fontColor: 'black',
+                     fontSize: 20,
+                     labelString: 'Views'
+                   }//end of scaleLabel
+                 }],//end of yAxes
+
+               xAxes: [{
+                   scaleLabel: {
+                     display: true,
+                     fontStyle: "bold",
+                     fontColor: 'black',
+                     fontSize: 20,
+                     labelString: 'Section'
+                   }//end of scaleLabel
+                 }]//end of xAxes
+               }//end of scales
+             }//end of options
+           });//end of chart instance
+      }
+    },
    //start of mounted
-   mounted: function(){
-     var ctx = document.getElementById('viewGraph').getContext('2d');
-     var myChart = new Chart(ctx, {
-       type: 'bar',
-       data: {
-         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-         datasets: [{
-           label: '# of Votes',
-           data: [12, 19, 3, 5, 2, 3],
-           backgroundColor: [
-             'rgba(255, 99, 132, 0.2)',
-             'rgba(54, 162, 235, 0.2)',
-             'rgba(255, 206, 86, 0.2)',
-             'rgba(75, 192, 192, 0.2)',
-             'rgba(153, 102, 255, 0.2)',
-             'rgba(255, 159, 64, 0.2)'
-           ],
-           borderColor: [
-             'rgba(255, 99, 132, 1)',
-             'rgba(54, 162, 235, 1)',
-             'rgba(255, 206, 86, 1)',
-             'rgba(75, 192, 192, 1)',
-             'rgba(153, 102, 255, 1)',
-             'rgba(255, 159, 64, 1)'
-           ],
-           borderWidth: 1
-         }]
-       },
-       options: {
-         responsive: true,
-         maintainAspectRatio: false,
-         scales: {
-           yAxes: [{
-             ticks: {
-                  beginAtZero: true
-                },
-                scaleLabel: {
-                  display: true,
-                  fontStyle: "bold",
-                  fontColor: 'black',
-                  fontSize: 20,
-                  labelString: 'Views'
-                }//end of scaleLabel
-              }],//end of yAxes
+   //mounted: function(){
 
-            xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  fontStyle: "bold",
-                  fontColor: 'black',
-                  fontSize: 20,
-                  labelString: 'Section'
-                }//end of scaleLabel
-              }]//end of xAxes
-            }//end of scales
-          }//end of options
-        });//end of chart instance
 
-      },//end of mounted function
+   //},//end of mounted function
 
-   //set my text in data function so it can be reactive
-   data: function() {
-     return {
-       header: 'Most Popular NYT Articles of the ',
-       subHeader: 'Health / Opinion / U.S.'
-
-     }//end of return
-   }//end of data
 
 })//end of component
 
@@ -199,12 +223,12 @@ var app = new Vue({
       loading: true,
       errored: false,
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
-      totalViews: []
+      totalViews: [],
+      loaded: false
     }
   },
   created: function(){
     this.loadData(1, this.labels);
-    //this.getTotalViews();
   },
   methods: {
     //for making the default API call
@@ -282,6 +306,8 @@ var app = new Vue({
         //add these values to the array
         this.totalViews = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
 
+        //set loaded to true
+        this.loaded = true;
     }//end of defaultData
 
   }//end of methods
