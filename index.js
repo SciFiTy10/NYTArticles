@@ -254,35 +254,45 @@ var app = new Vue({
         text = text.trimLeft();
         //trim the spaces to the right
         text = text.trimRight();
-        //create a slice of the existing array
-        var newArray = this.labels.slice();
+        //create a slice of the existing labels array
+        var newLabels = this.labels.slice();
+
+        //create a slice of the existing data array
+        var newData = this.data.slice();
 
         //get the index of the passed text
-        var index = newArray.indexOf(text);
+        var index = newLabels.indexOf(text);
+
         //we need if-else logic to decide whether to add this to the array or remove it
         //if checked is false
         if(!checked){
+          //check if index is > -1 we know this is in the array
+          if(index > -1){
+            //then splice that array to remove the element
+            newLabels.splice(index, 1);
+            //sort this array now to maintain alphabetical order
+            newLabels.sort();
+            //add the newLabels and overwrite the initial array
+            this.labels = newLabels;
 
-          if(newArray[0] === 'Health'){
-            console.log('This finally works');
-          }
-          if(text.trim() === 'Health'){
-            console.log('Wow this also works');
-          }
-          else{
-            console.log('This does not work');
-            console.log('Text is equal to: ' + text + ' and text is a: ' + typeof text);
-          }
-          for(arr in newArray){
-          //  console.log(newArray[arr]);
-            if(newArray[arr] === text){
-              console.log('Did this execute');
-              console.log('The text is : ' + text);
-              //console.log(' and it is at index: ' + newArray.indexOf(text));
-            }
+            //remove the data for this section
+            newData.splice(index, 1);
+
+            //do not sort
+            //add the newData and overwrite the initial data array
+            this.data = newData;
+
+            //print the new and improved array
+            console.log(this.labels);
+            console.log(this.data);
           }
 
         }
+        //otherwise checked is true
+        else{
+
+        }
+
 
     },
     //for making the default API call
