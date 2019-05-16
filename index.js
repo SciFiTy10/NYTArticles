@@ -48,13 +48,22 @@ Vue.component('section-filter', {
   `<div class="filter-container">
     <h3 id="filter-header">{{ header }}</h3>
     <div class="filter-main">
-      <label class="filter-checkbox" v-for="c in content">{{ c.text }}
-        <input type="checkbox" checked>
+      <label id = "checkboxLabel" class="filter-checkbox" v-for="c in content">{{ c.text }}
+        <input id = "input" type="checkbox" checked @change="onChange">
         <span class="checkmark"></span>
       </label>
     </div>
    </div>`,
+   methods: {
+     onChange: function(e){
+       var checked = e.target.checked;
+       var text = e.target.parentElement.textContent;
 
+       //this.$parent.onChange(checked, text);
+       console.log(checked + ' and ' + text );
+       //this.$emit("input", event.target.checked)
+     }
+   },
 
    //set my text in data function so it can be reactive
    data: function() {
@@ -235,6 +244,10 @@ var app = new Vue({
     this.loadData(1, this.labels);
   },
   methods: {
+    onChange: function(checked, text){
+        //console.log('Is the box checked? ' + checked);
+        //console.log('What does the text say: '+ text);
+    },
     //for making the default API call
     loadData: function(time, labels){
       //baseURL string
