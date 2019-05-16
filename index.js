@@ -102,7 +102,7 @@ Vue.component('graph', {
   },
 
    //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
-    props: ['labels', 'totalViews', 'loaded'],
+    props: ['labels', 'data', 'loaded'],
     //set my text in data function so it can be reactive
     data: function() {
       return {
@@ -125,7 +125,7 @@ Vue.component('graph', {
             datasets: [{
               label: '# of Views',
               //data: [12, 19, 3, 5, 2, 3],
-              data: this.totalViews,
+              data: this.data,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -223,7 +223,7 @@ var app = new Vue({
       loading: true,
       errored: false,
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
-      totalViews: [],
+      data: [],
       loaded: false
     }
   },
@@ -304,8 +304,8 @@ var app = new Vue({
         }//end of for loop
         //console.log('total health views: ' + totalHealth);
         //add these values to the array
-        this.totalViews = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
-
+        this.data = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
+        console.log(this.data);
         //set loaded to true
         this.loaded = true;
     }//end of defaultData
