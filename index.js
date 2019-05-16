@@ -80,17 +80,26 @@ Vue.component('graph', {
   //v-for is used so I can loop through content array in data
   `<div class="graph-container">
     <h3 id="graph-header">{{ header }}</h3>
-    <h4 id="graph-subHeader">{{ subHeader }}</h4>
+    <h4 id="graph-subHeader">{{ slashed }}</h4>
     <canvas id = "viewGraph"></canvas>
    </div>`,
    watch:{
      loaded: function(){
        if(this.loaded){
-         console.log(this.header);
+         console.log(this.labels);
          this.drawChart();
        }
      }
 
+  },
+  computed: {
+    // a computed getter
+    slashed: function () {
+      // `this` points to the vm instance
+      var newString = '';
+      newString = this.labels.join(' / ');
+      return newString
+    }
   },
 
    //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
