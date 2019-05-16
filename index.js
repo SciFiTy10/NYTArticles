@@ -49,11 +49,12 @@ Vue.component('section-filter', {
     <h3 id="filter-header">{{ header }}</h3>
     <div class="filter-main">
       <label class="filter-checkbox" v-for="c in content">{{ c.text }}
-        <input type="checkbox">
+        <input type="checkbox" checked>
         <span class="checkmark"></span>
       </label>
     </div>
    </div>`,
+
 
    //set my text in data function so it can be reactive
    data: function() {
@@ -108,8 +109,8 @@ Vue.component('graph', {
     data: function() {
       return {
         endText: this.text,
-        header: 'Most Popular NYT Articles of the '+ this.text,
-        subHeader: 'Health / Opinion / U.S.'
+        header: 'Most Popular NYT Articles of the '+ this.text
+
         //dataLabels: this.labels,
         //views: this.totalViews
 
