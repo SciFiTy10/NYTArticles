@@ -85,7 +85,7 @@ Vue.component('graph', {
    </div>`,
    watch:{
      loaded: function(){
-       
+
        if(this.loaded){
          console.log('check passed');
          this.drawChart();
@@ -121,11 +121,11 @@ Vue.component('graph', {
           type: 'bar',
           data: {
             //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            labels: this.dataLabels,
+            labels: this.labels,
             datasets: [{
               label: '# of Views',
               //data: [12, 19, 3, 5, 2, 3],
-              data: this.views,
+              data: this.totalViews,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
