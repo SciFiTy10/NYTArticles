@@ -85,28 +85,21 @@ Vue.component('graph', {
    </div>`,
    watch:{
      loaded: function(){
-
        if(this.loaded){
-         console.log('check passed');
+         console.log(this.header);
          this.drawChart();
-         console.log('drawing chart');
-         console.log('the value of the props is: '+this.data + ' and ' + this.labels);
        }
-
      }
-      /*loaded(isLoaded){
-          if(isLoaded){
-              this.drawChart();
-          }
-      }*/
+
   },
 
    //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
-    props: ['labels', 'data', 'loaded'],
+    props: ['labels', 'data', 'loaded', 'text'],
     //set my text in data function so it can be reactive
     data: function() {
       return {
-        header: 'Most Popular NYT Articles of the ',
+        endText: this.text,
+        header: 'Most Popular NYT Articles of the '+ this.text,
         subHeader: 'Health / Opinion / U.S.'
         //dataLabels: this.labels,
         //views: this.totalViews
@@ -224,7 +217,8 @@ var app = new Vue({
       errored: false,
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
       data: [],
-      loaded: false
+      loaded: false,
+      text: 'Last 1 Days'
     }
   },
   created: function(){
