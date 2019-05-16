@@ -59,8 +59,9 @@ Vue.component('section-filter', {
        var checked = e.target.checked;
        var text = e.target.parentElement.textContent;
 
-       //this.$parent.onChange(checked, text);
-       console.log(checked + ' and ' + text );
+       //pass these values to the parent's onChange method
+       this.$parent.onChange(checked, text);
+       //console.log(checked + ' and ' + text );
        //this.$emit("input", event.target.checked)
      }
    },
@@ -245,8 +246,44 @@ var app = new Vue({
   },
   methods: {
     onChange: function(checked, text){
+
         //console.log('Is the box checked? ' + checked);
         //console.log('What does the text say: '+ text);
+
+        //trim the spaces to the left
+        text = text.trimLeft();
+        //trim the spaces to the right
+        text = text.trimRight();
+        //create a slice of the existing array
+        var newArray = this.labels.slice();
+
+        //get the index of the passed text
+        var index = newArray.indexOf(text);
+        //we need if-else logic to decide whether to add this to the array or remove it
+        //if checked is false
+        if(!checked){
+
+          if(newArray[0] === 'Health'){
+            console.log('This finally works');
+          }
+          if(text.trim() === 'Health'){
+            console.log('Wow this also works');
+          }
+          else{
+            console.log('This does not work');
+            console.log('Text is equal to: ' + text + ' and text is a: ' + typeof text);
+          }
+          for(arr in newArray){
+          //  console.log(newArray[arr]);
+            if(newArray[arr] === text){
+              console.log('Did this execute');
+              console.log('The text is : ' + text);
+              //console.log(' and it is at index: ' + newArray.indexOf(text));
+            }
+          }
+
+        }
+
     },
     //for making the default API call
     loadData: function(time, labels){
