@@ -1,5 +1,3 @@
-var sections = ['Health','Magazine','Opinion','Smarter Thinking', 'U.S.', 'World'];
-
 //component for the navbar
 Vue.component('navbar', {
   //build a template which we will refer to in html
@@ -219,10 +217,24 @@ Vue.component('best-of-section', {
         <tr>
           <th v-for="c in content">{{ c.text }}</th>
         </tr>
+        <tr v-for="article in articles">
+          <td>{{ article.section }}</td>
+          <td>{{ article.title }}</td>
+          <td>{{ article.views }}</td>
+          <td>{{ article.url }}</td>
+        </tr>
       </table>
    </div>`,
+   props: ['ready', 'articles'],
 
-   props: ['text'],
+   watch: {
+     ready: function(){
+       if(this.ready){
+         console.log(this.articles);
+       }
+     }
+   },
+
    //set my text in data function so it can be reactive
    data: function() {
      return {
@@ -233,7 +245,8 @@ Vue.component('best-of-section', {
          { text: 'Title' },
          { text: 'Views' },
          { text: 'Link' }
-       ]
+       ],
+       articles: this.articles
      }
    }
 })
@@ -252,17 +265,16 @@ var app = new Vue({
       data: [],
       backupData: [],
       loaded: false,
+      ready: false,
       text: 'Last 1 Days',
-      health: [],
-      magazine: [],
-      opinion: [],
-      smarterliving: [],
-      us: [],
-      world: []
+      articles: []
     }
   },
   created: function(){
     this.loadData(1);
+  },
+  mounted: function(){
+    this.ready = true;
   },
   methods: {
     onChange: function(checked, text){
@@ -415,6 +427,7 @@ var app = new Vue({
         this.backupData = this.data.slice();
         //console.log(this.data);
         //set loaded to true
+
         this.loaded = true;
     },//end of defaultData
 
@@ -429,12 +442,12 @@ var app = new Vue({
       var highestWorldView = 0;
 
       //initialize arrays for all sections
-      var topHealth = ['Health'];
-      var topMagazine = ['Magazine'];
-      var topOpinion = ['Opinion'];
-      var topSmarterLiving = ['Smarter Living'];
-      var topUS = ['U.S.'];
-      var topWorld = ['World'];
+      var topHealth = {section: 'Health'};
+      var topMagazine = {section: 'Magazine'};
+      var topOpinion = {section: 'Opinion'};
+      var topSmarterLiving = {section: 'Smarter Living'};
+      var topUS = {section: 'U.S.'};
+      var topWorld = {section: 'World'};
 
       //I need to loop through this and find the top
       for(var i = 0; i < info.length-1; i++){
@@ -446,9 +459,9 @@ var app = new Vue({
             //set the new highest views
             highestHealthView = info[i].views;
             //push everything to the array
-            topHealth[1] = info[i].title;
-            topHealth[2] = info[i].views;
-            topHealth[3] = info[i].url;
+            topHealth.title = info[i].title;
+            topHealth.views = info[i].views;
+            topHealth.url = info[i].url;
           }
           break;
           case 'Magazine':
@@ -457,9 +470,9 @@ var app = new Vue({
             //set the new highest views
             highestMagazineView = info[i].views;
             //push everything to the array
-            topMagazine[1] = info[i].title;
-            topMagazine[2] = info[i].views;
-            topMagazine[3] = info[i].url;
+            topMagazine.title = info[i].title;
+            topMagazine.views = info[i].views;
+            topMagazine.url = info[i].url;
           }
           break;
           case 'Opinion':
@@ -468,9 +481,9 @@ var app = new Vue({
             //set the new highest views
             highestOpinionView = info[i].views;
             //push everything to the array
-            topOpinion[1] = info[i].title;
-            topOpinion[2] = info[i].views;
-            topOpinion[3] = info[i].url;
+            topOpinion.title = info[i].title;
+            topOpinion.views = info[i].views;
+            topOpinion.url = info[i].url;
           }
           break;
           case 'Smarter Living':
@@ -479,9 +492,9 @@ var app = new Vue({
             //set the new highest views
             highestSmarterLivingView = info[i].views;
             //push everything to the array
-            topSmarterLiving[1] = info[i].title;
-            topSmarterLiving[2] = info[i].views;
-            topSmarterLiving[3] = info[i].url;
+            topSmarterLiving.title = info[i].title;
+            topSmarterLiving.views = info[i].views;
+            topSmarterLiving.url = info[i].url;
           }
           break;
           case 'U.S.':
@@ -490,9 +503,9 @@ var app = new Vue({
             //set the new highest views
             highestUSView = info[i].views;
             //push everything to the array
-            topUS[1] = info[i].title;
-            topUS[2] = info[i].views;
-            topUS[3] = info[i].url;
+            topUS.title = info[i].title;
+            topUS.views = info[i].views;
+            topUS.url = info[i].url;
           }
           break;
           case 'World':
@@ -501,14 +514,13 @@ var app = new Vue({
           //check the view count against the highest
           if(info[i].views > highestWorldView){
             //push everything to the array
-            topWorld[1] = info[i].title;
-            topWorld[2] = info[i].views;
-            topWorld[3] = info[i].url;
+            topWorld.title = info[i].title;
+            topWorld.views = info[i].views;
+            topWorld.url = info[i].url;
           }
           break;
         }//end of switch
       }//end of for
-
 
 
       //handle if none of them had articles
@@ -516,57 +528,59 @@ var app = new Vue({
       var highestArray = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
       //loop through to see if they have 0
 
-        if(topHealth.length == 1){
+        if(!(topHealth.hasOwnProperty('views'))){
           //this doesn't return
-          topHealth[1] = 'N/A';
-          topHealth[2] = 0;
-          topHealth[3] = 'N/A';
+          topHealth.title = 'N/A';
+          topHealth.views = 0;
+          topHealth.url = 'N/A';
         }
-        if(topMagazine.length == 1){
+        if(!(topMagazine.hasOwnProperty('views'))){
           //this doesn't return
-          topMagazine[1] = 'N/A';
-          topMagazine[2] = 0;
-          topMagazine[3] = 'N/A';
+          topMagazine.title = 'N/A';
+          topMagazine.views = 0;
+          topMagazine.url = 'N/A';
         }
-        if(topOpinion.length == 1){
+
+        if(!(topOpinion.hasOwnProperty('views'))){
           //this doesn't return
-          topOpinion[1] = 'N/A';
-          topOpinion[2] = 0;
-          topOpinion[3] = 'N/A';
+          topOpinion.title = 'N/A';
+          topOpinion.views = 0;
+          topOpinion.url = 'N/A';
         }
-        if(topSmarterLiving.length == 1){
+        if(!(topSmarterLiving.hasOwnProperty('views'))){
           //this doesn't return
-          topSmarterLiving[1] = 'N/A';
-          topSmarterLiving[2] = 0;
-          topSmarterLiving[3] = 'N/A';
+          topSmarterLiving.title = 'N/A';
+          topSmarterLiving.views = 0;
+          topSmarterLiving.url = 'N/A';
         }
-        if(topUS.length == 1){
+        if(!(topUS.hasOwnProperty('views'))){
           //this doesn't return
-          topUS[1] = 'N/A';
-          topUS[2] = 0;
-          topUS[3] = 'N/A';
+          topUS.title = 'N/A';
+          topUS.views = 0;
+          topUS.url = 'N/A';
         }
-        if(topWorld.length == 1){
+        if(!(topWorld.hasOwnProperty('views'))){
           //this doesn't return
-          topWorld[1] = 'N/A';
-          topWorld[2] = 0;
-          topWorld[3] = 'N/A';
+          topWorld.title = 'N/A';
+          topWorld.views = 0;
+          topWorld.url = 'N/A';
         }
+
 
       //then roll them in order
-      this.health = topHealth;
-      this.magazine = topMagazine;
-      this.opinion = topOpinion;
-      this.smarterliving = topSmarterLiving;
-      this.us = topUS;
-      this.world = topWorld;
+      this.articles = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
 
-      console.log(this.health);
-      console.log(this.magazine);
-      console.log(this.opinion);
-      console.log(this.smarterliving);
-      console.log(this.us);
-      console.log(this.world);
+
+      //testing similar to loaded
+      //this.ready = true;
+
+      /*
+      console.log(topHealth.views);
+      console.log(topMagazine);
+      console.log(topOpinion);
+      console.log(topSmarterLiving);
+      console.log(topUS);
+      console.log(topWorld);*/
     }//end of getBestArticles
 
   }//end of methods
