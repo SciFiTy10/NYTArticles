@@ -3,8 +3,8 @@ Vue.component('navbar', {
   //build a template which we will refer to in html
   //header text refers to data below
   template: '<div id="navbar"><h1> {{ header }} </h1></div>',
-  //data has to be a function in component
-  //header text is in component so it can be reactive
+  //data has to be a function in a component
+  //header text is in this component so it can be reactive if changed
   data: function() {
     return {
       header: 'Welcome to the NYT Articles App!'
@@ -17,21 +17,22 @@ Vue.component('dropdown', {
   template:
   //dropdown parent element, button and content as children
   //used tick marks so I could write on multiple lines
-  //v-for is used so I can loop through content array in data
+  //v-for directive is used so I can loop through content array in data
   `<div class="dropdown">
     <button class="dropbtn">{{ dropdownLabel }}</button>
     <div class="dropdown-content">
       <a href="#" v-for="c in content" v-model="dropdownLabel" @click="newTime(c.id)">{{ c.text }}</a>
     </div>
    </div>`,
+   //methods property for storing our reusable methods
    methods: {
+     //onclick we catch the id of the object from the content array
      newTime: function(id){
-       //now we want to capture the id field for this one
-       //pass this value on to the parent method which we will create
+       //pass this value on to the parent method in our main vue instance
        this.$parent.newTime(id);
      }
    },
-   //set my text in data function so it can be reactive
+   //data option holds our dropdownLabel text, and the content array
    data: function() {
      return {
        dropdownLabel: 'Select a time period',
@@ -58,7 +59,7 @@ Vue.component('section-filter', {
   template:
   //filter parent container, filter-main area, and filter-checkbox container as children
   //used tick marks so I could write on multiple lines
-  //v-for is used so I can loop through content array in data
+  //v-for is used so I can loop through content array in data option
   `<div class="filter-container">
     <h3 id="filter-header">{{ header }}</h3>
     <div class="filter-main">
@@ -69,21 +70,21 @@ Vue.component('section-filter', {
     </div>
    </div>`,
    methods: {
+     //onChange, receive data as input
      onChange: function(e){
+       //capture whether the checkbox was checked
        var checked = e.target.checked;
+       //store the parent label's text element so we know which section
        var text = e.target.parentElement.textContent;
-
-       //pass these values to the parent's onChange method
+       //pass these values to the parent's (main vue instance) onChange method
        this.$parent.onChange(checked, text);
-       //console.log(checked + ' and ' + text );
-       //this.$emit("input", event.target.checked)
      }
    },
-
-   //set my text in data function so it can be reactive
+   //set the text in data function so it can be reactive
    data: function() {
      return {
        header: 'Choose your sections',
+       //text for the filter section labels
        content: [
          { text: 'Health' },
          { text: 'Magazine' },
@@ -95,10 +96,9 @@ Vue.component('section-filter', {
      }
    }
 })
-//props: ['info'],
+
 //component for the graph section
 Vue.component('graph', {
-
   template:
   //filter parent container, filter-main area, and filter-checkbox container as children
   //used tick marks so I could write on multiple lines
@@ -108,10 +108,15 @@ Vue.component('graph', {
     <h4 id="graph-subHeader">{{ slashed }}</h4>
     <canvas id = "viewGraph"></canvas>
    </div>`,
+   //watch property is used to listen for a change in the loaded variable (below in main vue instance)
+   //had to use this variable to account for asynchronous calls to API
+   //if there was no loaded variable, the call to the API would start, but
+   //my props and other data reliant on the API would return prior to the response data being returned
    watch:{
      loaded: function(){
+       //if loaded is set to true (response has come back)
        if(this.loaded){
-         console.log(this.text);
+         //call our drawChart function for buildng the myChart object with config settings
          this.drawChart();
        }//end of if
      },//end of loaded
@@ -119,51 +124,46 @@ Vue.component('graph', {
        this.drawChart();
      }
   },
+  //computed property caches this information, so it's helpful have the header and subHeader
+  //quickly react to changes made in the vue instance
   computed: {
-    // a computed getter
+    // function for taking the subheader and inputting slashes inbetween
     slashed: function () {
-      // `this` points to the vm instance
       var newString = '';
       newString = this.labels.join(' / ');
       return newString
     },
+    //setting our chart data to computed provides quick reactivity for the data coming in as props
     chartData: function(){
-      //console.log('The data is ' + this.data);
       return this.data;
     },
     header: function(){
       return 'Most Popular NYT Articles ' + this.text;
     }
   },
-  //start of mounted
+  //call drawChart when the component is mounted
   mounted: function(){
     this.drawChart();
 
   },//end of mounted function
-
-   //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
+    //props passed from the main vue instance below
     props: ['labels', 'data', 'loaded', 'text'],
-    //set my text in data function so it can be reactive
-    data: function() {
-      return {
-        //header: 'Most Popular NYT Articles '+ this.text
-      }//end of return
-    },//end of data
     methods: {
+      //drawChart function referenced above
       drawChart: function(){
-
-        //console.log('The value of Labels for chart is: '+ this.labels);
-
+        //create a connection between this function and the id in the canvas element above
         var ctx = document.getElementById('viewGraph').getContext('2d');
+        //create chart object and begin config detail
         var myChart = new Chart(ctx, {
+          //bar chart
           type: 'bar',
           data: {
-            //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            //set labels passed as props
             labels: this.labels,
             datasets: [{
+              //label above in the legend
               label: '# of Views',
-              //data: [12, 19, 3, 5, 2, 3],
-              //data: this.data,
+              //reference to chartData from above
               data: this.chartData,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -188,8 +188,6 @@ Vue.component('graph', {
             //set events to empty so that the graphs would stop glitching on mouseover
             events: [],
             responsive: true,
-            //responsive: false,
-            //maintainAspectRatio: false,
             maintainAspectRatio: true,
             scales: {
               yAxes: [{
@@ -201,6 +199,7 @@ Vue.component('graph', {
                      fontStyle: "bold",
                      fontColor: 'black',
                      fontSize: 20,
+                     //label for the yAxes
                      labelString: 'Total Views'
                    }//end of scaleLabel
                  }],//end of yAxes
@@ -211,14 +210,13 @@ Vue.component('graph', {
                      fontStyle: "bold",
                      fontColor: 'black',
                      fontSize: 20,
+                     //label for the xAxes
                      labelString: 'Section'
                    }//end of scaleLabel
                  }]//end of xAxes
                }//end of scales
              }//end of options
            });//end of chart instance
-
-
       }
     }//end of methods
 })//end of component

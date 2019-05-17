@@ -17,10 +17,10 @@
         </div><!--end of left side parent component-->
         <div id="graph-and-articles"><!--right side parent element for graph and articles section-->
 
-          <!--graph component. This receives multiple data bindings so it can react to changes-->
+          <!--graph component. This receives multiple v-bindings (from passed props) so it can react to changes-->
           <graph :loaded="loaded" :data="data" :labels="labels" :text="text"></graph>
 
-          <!--best of section component. This receives multiple data bindings so it can react to changes-->
+          <!--best of section component. This receives multiple v-bindings (from passed props) so it can react to changes-->
           <best-of-section :text="text" :ready="ready" :articles="articles"></best-of-section>
         </div><!--end of right side parent component-->
       </div><!--end of main-area-->
