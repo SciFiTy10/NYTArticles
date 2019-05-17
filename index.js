@@ -97,7 +97,7 @@ Vue.component('graph', {
    watch:{
      loaded: function(){
        if(this.loaded){
-         console.log(this.labels);
+         //console.log(this.labels);
          this.drawChart();
        }//end of if
      },//end of loaded
@@ -114,6 +114,7 @@ Vue.component('graph', {
       return newString
     },
     chartData: function(){
+      //console.log('The data is ' + this.data);
       return this.data;
     }
   },
@@ -244,7 +245,7 @@ var app = new Vue({
       loading: true,
       errored: false,
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
-      backupLabels: [],
+      backupLabels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
       data: [],
       backupData: [],
       loaded: false,
@@ -256,29 +257,31 @@ var app = new Vue({
   },
   methods: {
     onChange: function(checked, text){
-        //console.log('Is the box checked? ' + checked);
-        //console.log('What does the text say: '+ text);
-
-        //trim the spaces to the left
-        text = text.trimLeft();
-        //trim the spaces to the right
-        text = text.trimRight();
-        //create a slice of the existing labels array
-        var newLabels = this.labels.slice();
-
-        //create a slice of the existing data array
-        var newData = this.data.slice();
-
-        //get the index of the passed text
-        var index = newLabels.indexOf(text);
 
         //we need if-else logic to decide whether to add this to the array or remove it
         //if checked is false
         if(!checked){
+
+          //trim the spaces to the left
+          text = text.trimLeft();
+          //trim the spaces to the right
+          text = text.trimRight();
+
+          //create a copy of the  labels array
+          var newLabels = this.labels.slice();
+
+          //create a copy of the  data array
+          var newData = this.data.slice();
+
+          //get the index of the passed text
+          var index = newLabels.indexOf(text);
+
           //check if index is > -1 we know this is in the array
           if(index > -1){
+
             //then splice that array to remove the element
             newLabels.splice(index, 1);
+
             //sort this array now to maintain alphabetical order
             newLabels.sort();
             //add the newLabels and overwrite the initial array
@@ -301,10 +304,35 @@ var app = new Vue({
             //console.log(this.labels);
             //console.log(this.data);
           }
+          console.log('The current labels are '+this.labels);
+          console.log('The current data is '+this.data);
 
         }
         //otherwise checked is true
         else{
+
+            //trim the spaces to the left
+            text = text.trimLeft();
+            //trim the spaces to the right
+            text = text.trimRight();
+
+            //add the text to the end of the array
+            this.labels.push(text);
+            //sort the array
+            this.labels.sort();
+
+            //overwrite the array to re-include the previous value
+            //this.labels = newLabels;
+            //get the value at the index specified for the data
+            var index = this.backupLabels.indexOf(text);
+
+            var addition = this.backupData[index];
+
+            //now we insert that value into the old data array
+            this.data.splice(index, 0, addition);
+            console.log('The current labels are '+this.labels);
+            console.log('The current data is '+this.data);
+
 
         }
 
