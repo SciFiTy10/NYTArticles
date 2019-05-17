@@ -421,12 +421,20 @@ var app = new Vue({
     getBestArticles: function(info){
 
       //set defaults for all of the highest views thus far
-      highestHealthView = 0;
-      highestMagazineView = 0;
-      highestOpinionView = 0;
-      highestSmarterLivingView = 0;
-      highestUSView = 0;
-      highestWorldView = 0;
+      var highestHealthView = 0;
+      var highestMagazineView = 0;
+      var highestOpinionView = 0;
+      var highestSmarterLivingView = 0;
+      var highestUSView = 0;
+      var highestWorldView = 0;
+
+      //initialize arrays for all sections
+      var topHealth = ['Health'];
+      var topMagazine = ['Magazine'];
+      var topOpinion = ['Opinion'];
+      var topSmarterLiving = ['Smarter Living'];
+      var topUS = ['U.S.'];
+      var topWorld = ['World'];
 
       //I need to loop through this and find the top
       for(var i = 0; i < info.length-1; i++){
@@ -435,37 +443,97 @@ var app = new Vue({
           case 'Health':
           //check the view count against the highest
           if(info[i].views > highestHealthView){
+            //set the new highest views
+            highestHealthView = info[i].views;
             //push everything to the array
-            this.health.push(info[i].section);
-            this.health.push(info[i].title);
-            this.health.push(info[i].views);
-            this.health.push(info[i].url);
+            topHealth[1] = info[i].title;
+            topHealth[2] = info[i].views;
+            topHealth[3] = info[i].url;
           }
           break;
           case 'Magazine':
-          //add to the total
-          totalMagazine+=info[i].views
+          //check the view count against the highest
+          if(info[i].views > highestMagazineView){
+            //set the new highest views
+            highestMagazineView = info[i].views;
+            //push everything to the array
+            topMagazine[1] = info[i].title;
+            topMagazine[2] = info[i].views;
+            topMagazine[3] = info[i].url;
+          }
           break;
           case 'Opinion':
-          //add to the total
-          totalOpinion+=info[i].views
+          //check the view count against the highest
+          if(info[i].views > highestOpinionView){
+            //set the new highest views
+            highestOpinionView = info[i].views;
+            //push everything to the array
+            topOpinion[1] = info[i].title;
+            topOpinion[2] = info[i].views;
+            topOpinion[3] = info[i].url;
+          }
           break;
           case 'Smarter Living':
-          //add to the total
-          totalSmarterLiving+=info[i].views
+          //check the view count against the highest
+          if(info[i].views > highestSmarterLivingView){
+            //set the new highest views
+            highestSmarterLivingView = info[i].views;
+            //push everything to the array
+            topSmarterLiving[1] = info[i].title;
+            topSmarterLiving[2] = info[i].views;
+            topSmarterLiving[3] = info[i].url;
+          }
           break;
           case 'U.S.':
-          //add to the total
-          totalUS+=info[i].views
+          //check the view count against the highest
+          if(info[i].views > highestUSView){
+            //set the new highest views
+            highestUSView = info[i].views;
+            //push everything to the array
+            topUS[1] = info[i].title;
+            topUS[2] = info[i].views;
+            topUS[3] = info[i].url;
+          }
           break;
           case 'World':
-          //add to the total
-          totalWorld+=info[i].views
+          //set the new highest views
+          highestWorldView = info[i].views;
+          //check the view count against the highest
+          if(info[i].views > highestWorldView){
+            //push everything to the array
+            topWorld[1] = info[i].title;
+            topWorld[2] = info[i].views;
+            topWorld[3] = info[i].url;
+          }
           break;
         }//end of switch
       }//end of for
 
 
+      console.log(topHealth);
+      console.log(topMagazine);
+      console.log(topOpinion);
+      console.log(topSmarterLiving);
+      console.log(topUS);
+      console.log(topWorld);
+      //handle if none of them had articles
+      //use an array for all the highest scores then loop through it
+      var highestArray = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
+      //loop through to see if they have 0
+      for(a in highestArray){
+        if(a[1] == null){
+          //this doesn't return
+        }
+      }
+
+
+      //then roll them in order
+      this.health = topHealth;
+      this.magazine = topMagazine;
+      this.opinion = topOpinion;
+      this.smarterliving = topSmarterLiving;
+      this.us = topUS;
+      this.world = topWorld;
     }//end of getBestArticles
 
   }//end of methods
