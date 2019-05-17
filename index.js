@@ -111,7 +111,7 @@ Vue.component('graph', {
    watch:{
      loaded: function(){
        if(this.loaded){
-         //console.log(this.labels);
+         console.log(this.text);
          this.drawChart();
        }//end of if
      },//end of loaded
@@ -130,6 +130,9 @@ Vue.component('graph', {
     chartData: function(){
       //console.log('The data is ' + this.data);
       return this.data;
+    },
+    header: function(){
+      return 'Most Popular NYT Articles ' + this.text;
     }
   },
   //start of mounted
@@ -143,8 +146,7 @@ Vue.component('graph', {
     //set my text in data function so it can be reactive
     data: function() {
       return {
-        endText: this.text,
-        header: 'Most Popular NYT Articles '+ this.text
+        //header: 'Most Popular NYT Articles '+ this.text
       }//end of return
     },//end of data
     methods: {
@@ -197,7 +199,7 @@ Vue.component('graph', {
                      fontStyle: "bold",
                      fontColor: 'black',
                      fontSize: 20,
-                     labelString: 'Views'
+                     labelString: 'Total Views'
                    }//end of scaleLabel
                  }],//end of yAxes
 
