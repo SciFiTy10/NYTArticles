@@ -185,6 +185,8 @@ Vue.component('graph', {
             }]
           },
           options: {
+            //set events to empty so that the graphs would stop glitching on mouseover
+            events: [],
             responsive: true,
             //responsive: false,
             //maintainAspectRatio: false,
@@ -219,8 +221,6 @@ Vue.component('graph', {
 
       }
     }//end of methods
-
-
 })//end of component
 
 //component for the top-news
