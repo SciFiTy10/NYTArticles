@@ -54,7 +54,7 @@ h1{
   /*margin-left: 100% - 250px;*/
   width: calc(100% - 300px);
   margin-left: 250px;
-  margin-right: 250px;
+  margin-right: 75px;
   height: calc(100% - 60px);
   /*margin-bottom: 40px;*/
   /*position: fixed;*/
@@ -232,19 +232,15 @@ h1{
 }
 
 .graph-container{
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     border-style: groove;
     border-color: pink;
     /*Testing*/
     min-width: 10%;
     max-width: 100%;
     /*Testing*/
-    max-height: 65%;
+    max-height: 60%;
     min-width: 10%;
-
-
-
-
 
     /*max-width: 400px;*/
     /*max-height: 200px;*/
@@ -257,10 +253,6 @@ canvas{
   max-height: 70%;
   width: 50%;
 
-
-
-
-
 }
 
 .best-of-section-container{
@@ -269,7 +261,7 @@ canvas{
   border-style: groove;
   border-color: orange;
   /*Testing*/
-  height: 35%;
+  height: 40%;
 
 
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -277,6 +269,24 @@ canvas{
 
 table{
   width: 100%;
+}
+
+.headerRow{
+  background-color: #008080;
+  color: white;
+}
+
+.tableRow{
+  font-size: 12px;
+  margin-right: 150px;
+}
+
+.viewsAndURL{
+  text-align: center;
+}
+
+#titleColumn{
+  padding-left: 70px;
 }
 
 

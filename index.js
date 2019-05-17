@@ -212,16 +212,15 @@ Vue.component('best-of-section', {
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
   `<div class="best-of-section-container">
-      <h3 id ="best-of-section-header">{{ header }}</h3>
       <table>
         <tr>
-          <th v-for="c in content">{{ c.text }}</th>
+          <th class="headerRow" v-for="c in content">{{ c.text }}</th>
         </tr>
-        <tr v-for="article in articles">
+        <tr class = "tableRow" v-for="article in articles">
           <td>{{ article.section }}</td>
-          <td>{{ article.title }}</td>
-          <td>{{ article.views }}</td>
-          <td>{{ article.url }}</td>
+          <td class="viewsAndURL">{{ article.views }}</td>
+          <td id="titleColumn">{{ article.title }}</td>
+          <td class="viewsAndURL"><a target="_blank" :href="article.url"><img src="https://img.icons8.com/ios-glyphs/30/000000/arrow.png"></a></td>
         </tr>
       </table>
    </div>`,
@@ -242,8 +241,8 @@ Vue.component('best-of-section', {
        endText: this.text,
        content: [
          { text: 'Section' },
-         { text: 'Title' },
          { text: 'Views' },
+         { text: 'Title' },
          { text: 'Link' }
        ],
        articles: this.articles
