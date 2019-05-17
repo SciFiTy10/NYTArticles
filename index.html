@@ -9,28 +9,28 @@
   <body>
 
     <div id="app"><!--main div for app -->
-      <!--<p>{{ info }}</p>-->
-      <navbar></navbar><!--navbar-->
-      <div id="main-area"><!--main area below navbar-->
-        <div id="time-and-filters"><!--left side for dropdown and filter-section-->
-          <dropdown></dropdown>
-          <section-filter></section-filter>
-        </div>
-        <div id="graph-and-articles"><!--right side for graph and articles section-->
+      <navbar></navbar><!--navbar component-->
+      <div id="main-area"><!--main area component below navbar-->
+        <div id="time-and-filters"><!--left side parent element for dropdown and filter-section components-->
+          <dropdown></dropdown><!--dropdown component-->
+          <section-filter></section-filter><!--section-filter component-->
+        </div><!--end of left side parent component-->
+        <div id="graph-and-articles"><!--right side parent element for graph and articles section-->
+
+          <!--graph component. This receives multiple data bindings so it can react to changes-->
           <graph :loaded="loaded" :data="data" :labels="labels" :text="text"></graph>
+
+          <!--best of section component. This receives multiple data bindings so it can react to changes-->
           <best-of-section :text="text" :ready="ready" :articles="articles"></best-of-section>
-        </div>
-
-
-
-      </div>
+        </div><!--end of right side parent component-->
+      </div><!--end of main-area-->
     </div><!--End of app-->
 
     <!-- Vue.js development version -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!--Chart.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <!--Include axios in our project-->
+    <!--Include axios in our project for calling the API-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Link to javascript file-->
     <script type="text/javascript" src="./index.js"></script>
