@@ -21,17 +21,33 @@ Vue.component('dropdown', {
   `<div class="dropdown">
     <button class="dropbtn">{{ dropdownLabel }}</button>
     <div class="dropdown-content">
-      <a href="#" v-for="c in content" v-model="dropdownLabel">{{ c.text }}</a>
+      <a href="#" v-for="c in content" v-model="dropdownLabel" @click="newTime(c.id)">{{ c.text }}</a>
     </div>
    </div>`,
+   methods: {
+     newTime: function(id){
+       //now we want to capture the id field for this one
+       //pass this value on to the parent method which we will create
+       this.$parent.newTime(id);
+     }
+   },
    //set my text in data function so it can be reactive
    data: function() {
      return {
        dropdownLabel: 'Select a time period',
        content: [
-         { text: 'Last 1 Days' },
-         { text: 'Last 7 Days' },
-         { text: 'Last 30 Days' }
+         {
+           id: 1,
+           text: 'Yesterday'
+         },
+         {
+           id: 7,
+           text: 'Last 7 Days'
+          },
+         {
+           id: 30,
+           text: 'Last 30 Days'
+          }
        ]
      }
    }
@@ -128,7 +144,7 @@ Vue.component('graph', {
     data: function() {
       return {
         endText: this.text,
-        header: 'Most Popular NYT Articles of the '+ this.text
+        header: 'Most Popular NYT Articles '+ this.text
       }//end of return
     },//end of data
     methods: {
@@ -244,7 +260,7 @@ Vue.component('best-of-section', {
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Best Articles by Section for the ' + this.text,
+       header: 'Best Articles by Section ' + this.text,
        endText: this.text,
        content: [
          { text: 'Section' },
@@ -272,7 +288,7 @@ var app = new Vue({
       backupData: [],
       loaded: false,
       ready: false,
-      text: 'Last 1 Days',
+      text: 'from Yesterday',
       articles: []
     }
   },
@@ -283,6 +299,35 @@ var app = new Vue({
     this.ready = true;
   },
   methods: {
+    newTime: function(id){
+      //we are taking this id and setting the new text for the header
+      //as well as passing this on to the API call for a new time setting
+      var newText = '';
+      //change the text
+      switch(id){
+        //if id is 1
+        case 1:
+        //set the text = 'from Yesterday'
+        newText = 'from Yesterday';
+        this.text = newText;
+        break;
+        //if id is 7
+        case 7:
+        //set the text = 'from Yesterday'
+        newText = 'of the Last 7 Days';
+        this.text = newText;
+        break;
+        //if id is 30
+        case 30:
+        //set the text = 'from Yesterday'
+        newText = 'of the Last 30 Days';
+        this.text = newText;
+        break;
+      }//end of switch
+
+      //now we pass this into the API call to get new results
+      this.loadData(id);
+    },
     onChange: function(checked, text){
 
         //we need if-else logic to decide whether to add this to the array or remove it
