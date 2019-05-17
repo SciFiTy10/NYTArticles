@@ -221,14 +221,17 @@ Vue.component('best-of-section', {
         </tr>
       </table>
    </div>`,
+
+   props: ['text'],
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Best Articles by Section for the ',
+       header: 'Best Articles by Section for the ' + this.text,
+       endText: this.text,
        content: [
+         { text: 'Section' },
          { text: 'Title' },
          { text: 'Views' },
-         { text: 'Section' },
          { text: 'Link' }
        ]
      }
@@ -249,7 +252,13 @@ var app = new Vue({
       data: [],
       backupData: [],
       loaded: false,
-      text: 'Last 1 Days'
+      text: 'Last 1 Days',
+      health: [],
+      magazine: [],
+      opinion: [],
+      smarterliving: [],
+      us: [],
+      world: []
     }
   },
   created: function(){
@@ -294,18 +303,8 @@ var app = new Vue({
             //add the newData and overwrite the initial data array
             this.data = newData;
 
-            //set loaded = true because it is a prop which is needed prior to drawChart running
-            //this.loaded = false;
-            //this.loaded = true;
-
-            //this.myChart.update();
-
-            //print the new and improved array
-            //console.log(this.labels);
-            //console.log(this.data);
           }
-          console.log('The current labels are '+this.labels);
-          console.log('The current data is '+this.data);
+
 
         }
         //otherwise checked is true
@@ -330,9 +329,6 @@ var app = new Vue({
 
             //now we insert that value into the old data array
             this.data.splice(index, 0, addition);
-            console.log('The current labels are '+this.labels);
-            console.log('The current data is '+this.data);
-
 
         }
 
@@ -358,6 +354,8 @@ var app = new Vue({
           this.info = response.data.results
           //console.log(this.info.length)
           this.getTotalViews(this.info);
+          //new method here
+          this.getBestArticles(this.info);
         })
         .catch(error => {
           console.log(error)
@@ -418,7 +416,57 @@ var app = new Vue({
         //console.log(this.data);
         //set loaded to true
         this.loaded = true;
-    }//end of defaultData
+    },//end of defaultData
+
+    getBestArticles: function(info){
+
+      //set defaults for all of the highest views thus far
+      highestHealthView = 0;
+      highestMagazineView = 0;
+      highestOpinionView = 0;
+      highestSmarterLivingView = 0;
+      highestUSView = 0;
+      highestWorldView = 0;
+
+      //I need to loop through this and find the top
+      for(var i = 0; i < info.length-1; i++){
+        //if this.info[i].section ==
+        switch(info[i].section) {
+          case 'Health':
+          //check the view count against the highest
+          if(info[i].views > highestHealthView){
+            //push everything to the array
+            this.health.push(info[i].section);
+            this.health.push(info[i].title);
+            this.health.push(info[i].views);
+            this.health.push(info[i].url);
+          }
+          break;
+          case 'Magazine':
+          //add to the total
+          totalMagazine+=info[i].views
+          break;
+          case 'Opinion':
+          //add to the total
+          totalOpinion+=info[i].views
+          break;
+          case 'Smarter Living':
+          //add to the total
+          totalSmarterLiving+=info[i].views
+          break;
+          case 'U.S.':
+          //add to the total
+          totalUS+=info[i].views
+          break;
+          case 'World':
+          //add to the total
+          totalWorld+=info[i].views
+          break;
+        }//end of switch
+      }//end of for
+
+
+    }//end of getBestArticles
 
   }//end of methods
 })
