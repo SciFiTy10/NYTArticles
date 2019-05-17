@@ -1,0 +1,324 @@
+/*********************************
+  NAVBAR SECTION
+**********************************/
+
+/*navbar style*/
+#navbar{
+
+  background-color: #008080;/*set the color to teal*/
+  position: fixed;/*fix the navbar in place/remove from normal flow*/
+  width: 100%;/*spread across entire view*/
+  margin:0;
+  height: 50px;/*set how tall the navbar will be*/
+  border-style: groove;/*border style must be defined before color will take*/
+
+  /*set overall border-color as teal, and then set bottom to gold*/
+  /*this saves us from going top, left, right = teal*/
+  border-color: #008080;
+  border-bottom-color: #FFD700;
+}
+/*header style*/
+h1{
+  margin: 0;
+  color: white;
+  padding: 10px;/*give some spacing around the header text*/
+}
+
+/*********************************
+  MAIN AREA AND MAIN CONTAINER SECTION
+**********************************/
+
+/*this section holds the left and right sides as children*/
+/*this is a container for everything under the navbar*/
+#main-area{
+  display: flex;/*set the display to flexbox*/
+
+  /*this project is designed so the user doesn't have to scroll*/
+  /*this is why the positions are fixed repeatedly*/
+  position: fixed;
+
+  /*main-area begins beneath the navbar*/
+  /*if this wasn't included, the main area would overlap with the navbar*/
+  /*this is due to the navbar being out of flow (position: fixed)*/
+  margin-top: 50px;
+  width: 100%;/*set the width and height to fill the screen*/
+  height: 100%;
+}
+
+/*this section contains the time dropdown and filter section*/
+#time-and-filters{
+  display: flex;/*set the display to a vertical flexbox*/
+  flex-direction: column;
+  width: 200px;/*set the width of this (parent) section to 200px*/
+  margin-left: 25px;/*push out 25px from the left side of the screen*/
+  position: fixed;/*hold the position of this parent in place*/
+
+}
+/*this section contains the graph and articles sections*/
+#graph-and-articles{
+  display: flex;/*set the display to a vertical flexbox*/
+  flex-direction: column;
+  width: calc(100% - 300px);/*set the width based on the full screen*/
+  margin-left: 250px;/*move the left side 250px due to fixed left parent element*/
+  margin-right: 75px;/*move the right side 75px from the edge of the screen*/
+  height: calc(100% - 60px);/*set the height based on the full screen*/
+}
+
+/*********************************
+  DROPDOWN SECTION
+**********************************/
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;/*set this container to be relative to the filter section container below*/
+  display: inline-block;/*follow a block flow inline;*/
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #008080;/*set background-color as teal*/
+  color: white;/*white letters*/
+  padding: 16px;/*provide space around the text*/
+  font-size: 16px;
+  border: none;/*remove the borders*/
+  margin-top: 15px;/*move the btn down 25px*/
+  border-style: groove;/*feeling groovy*/
+  border-color: #FFD700;/*set gold frame this section*/
+  width: 100%;/*fill the parent container's width*/
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;/*hidden for now*/
+  position: absolute;
+  background-color: #f1f1f1;/*background color of content is grey*/
+  /*set the width to match the parent container*/
+  /*provide a min width that matches in case of responsive movement*/
+  min-width: 200px;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);/*shadow behind the content section*/
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #008080;
+  color: white;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #000000;
+}
+
+/*********************************
+  FILTER SECTION
+**********************************/
+
+/*header for the filter section*/
+#filter-header{
+    text-align: center;/*center the header text*/
+    color: white;
+}
+
+/*parent container for the filter section*/
+.filter-container{
+  position: relative;/*set this filter section relative to the time dropdown above*/
+  display: inline-block;
+  border-style: groove;
+  border-color: #FFD700;
+  margin-top: 150px;/*put 150px of space in between the time dropdown section and the filter*/
+  background-color: #008080;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/*main area of filter section*/
+.filter-main{
+  background-color: white;
+  padding-top: 20px;
+  padding-bottom, padding-left, padding-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+/*This is where the checkbox specific container goes*/
+/*so far we have a teal parent container*/
+/* a white main container inside */
+/* and this container is a rectangle around the checkbox and its label */
+.filter-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-left: 15px;
+  margin-bottom: 18px;
+  cursor: pointer;/* set the mouse cursor to a pointed index finger */
+  font-size: 18px;
+  -webkit-user-select: none;/* browser specific settings */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+/* we are using a custom checkbox */
+.filter-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 25px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #ffffff;
+}
+
+/* On mouse-over, add a gold background color to the checkbox*/
+.filter-checkbox:hover input ~ .checkmark {
+  background-color: #FFD700;
+}
+
+/* When the checkbox is checked, add a teal background */
+.filter-checkbox input:checked ~ .checkmark {
+  background-color: #008080;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.filter-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.filter-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);/* browser specific properties */
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*********************************
+  GRAPH SECTION
+**********************************/
+
+/* header for the graph */
+#graph-header{
+    text-align: center;
+    background-color: #008080;
+}
+
+/* graph subheader */
+#graph-subHeader{
+    text-align: center;
+    background-color: #008080;/* teal color */
+    color: white;
+    font-style: italic;
+}
+/* parent element for the graph */
+.graph-container{
+    background-color: #008080;/* teal color */
+    color: white;
+    margin-top: 10px;
+    border-style: groove;
+    border-color: #FFD700; /* gold color */
+    min-width: 10%;
+    max-width: 100%;
+    max-height: 65%;
+    min-width: 10%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* element for the graph from chart.js to link with */
+canvas{
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+  max-height: 70%;
+  width: 30%;
+
+}
+
+/*********************************
+  BEST OF/ARTICLE SECTION
+**********************************/
+
+/* parent container for the article section */
+.best-of-section-container{
+  margin-top: 5px;
+  position: relative;
+  display: inline-block;
+  border-style: groove;
+  border-color: #FFD700;
+  height: 35%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+/* for the table section */
+table{
+  width: 100%;
+}
+
+/* for the header in the article section */
+.headerRow{
+  background-color: #008080;
+  color: white;
+}
+
+/* for each table row in the article section */
+.tableRow{
+  font-size: 13px;
+  margin-right: 150px;
+}
+
+/* for both the views and URL columns */
+.viewsAndURL{
+  text-align: center;
+}
+
+/* for the title column */
+#titleColumn{
+  padding-left: 70px;
+}
+
+/*********************************
+  BODY SECTION
+**********************************/
+
+/* for the body of the site */
+body{
+    margin:0;
+    background-color: #ffffff;
+}
