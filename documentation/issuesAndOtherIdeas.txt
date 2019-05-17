@@ -1,0 +1,24 @@
+Here are some of the issues/obstacles I faced when building this project:
+
+1) After building the view layer first (components and layout for css), I was not sure where to execute certain parts of the project.
+
+  - For example: I wasn't sure whether I should be calling the API from a component piece like the graph and the article section directly,
+  or whether I should do that in the main vue instance.
+
+  I decided to follow a simple rule of thumb: props pass down, events call up.
+
+  I decided to call the API from the main vue instance and then pass changing properties down to their child components for rendering.
+
+2) I also had issues with the asynchronous nature of API calls. I found it odd that the best workaround I could come up with to prevent rendering early
+was to set a boolean flag that waited for the API to return its response.
+
+  Upon studying questions on stackoverflow this seemed like a common issue with Vue, so I at least felt better about that. I'm very curious to see
+  how you guys handle this at ECRA Group.
+
+****Other Ideas****
+
+Before committing to the separate HTML, CSS, and JS file structure, I did read up a lot on .Vue files and single file components.
+
+I did not want to tackle too much at once, so I made an executive decision to go this route and turn in a good project.
+
+I am very excited at the prospect that this structure brings, and I can't wait to practice that route to making Vue apps!
