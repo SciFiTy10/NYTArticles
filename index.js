@@ -169,7 +169,9 @@ Vue.component('graph', {
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,
+            //responsive: false,
+            //maintainAspectRatio: false,
+            maintainAspectRatio: true,
             scales: {
               yAxes: [{
                 ticks: {
@@ -288,8 +290,8 @@ var app = new Vue({
             this.data = newData;
 
             //set loaded = true because it is a prop which is needed prior to drawChart running
-            this.loaded = false;
-            this.loaded = true;
+            //this.loaded = false;
+            //this.loaded = true;
 
             //this.myChart.update();
 

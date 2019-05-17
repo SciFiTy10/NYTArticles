@@ -236,7 +236,15 @@ h1{
     border-style: groove;
     border-color: pink;
     /*Testing*/
-    width: 100%;
+    min-width: 10%;
+    max-width: 100%;
+    /*Testing*/
+    max-height: 65%;
+    min-width: 10%;
+
+
+
+
 
     /*max-width: 400px;*/
     /*max-height: 200px;*/
@@ -244,8 +252,15 @@ h1{
 
 }
 canvas{
-  width: 100px;
-  height: 100px;
+  text-align: center;
+  justify-content: center;
+  max-height: 70%;
+  width: 50%;
+
+
+
+
+
 }
 
 .best-of-section-container{
@@ -253,7 +268,9 @@ canvas{
   display: inline-block;
   border-style: groove;
   border-color: orange;
-  height: 100%;
+  /*Testing*/
+  height: 35%;
+
 
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
