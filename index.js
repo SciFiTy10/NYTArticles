@@ -510,22 +510,48 @@ var app = new Vue({
       }//end of for
 
 
-      console.log(topHealth);
-      console.log(topMagazine);
-      console.log(topOpinion);
-      console.log(topSmarterLiving);
-      console.log(topUS);
-      console.log(topWorld);
+
       //handle if none of them had articles
       //use an array for all the highest scores then loop through it
       var highestArray = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
       //loop through to see if they have 0
-      for(a in highestArray){
-        if(a[1] == null){
-          //this doesn't return
-        }
-      }
 
+        if(topHealth.length == 1){
+          //this doesn't return
+          topHealth[1] = 'N/A';
+          topHealth[2] = 0;
+          topHealth[3] = 'N/A';
+        }
+        if(topMagazine.length == 1){
+          //this doesn't return
+          topMagazine[1] = 'N/A';
+          topMagazine[2] = 0;
+          topMagazine[3] = 'N/A';
+        }
+        if(topOpinion.length == 1){
+          //this doesn't return
+          topOpinion[1] = 'N/A';
+          topOpinion[2] = 0;
+          topOpinion[3] = 'N/A';
+        }
+        if(topSmarterLiving.length == 1){
+          //this doesn't return
+          topSmarterLiving[1] = 'N/A';
+          topSmarterLiving[2] = 0;
+          topSmarterLiving[3] = 'N/A';
+        }
+        if(topUS.length == 1){
+          //this doesn't return
+          topUS[1] = 'N/A';
+          topUS[2] = 0;
+          topUS[3] = 'N/A';
+        }
+        if(topWorld.length == 1){
+          //this doesn't return
+          topWorld[1] = 'N/A';
+          topWorld[2] = 0;
+          topWorld[3] = 'N/A';
+        }
 
       //then roll them in order
       this.health = topHealth;
@@ -534,6 +560,13 @@ var app = new Vue({
       this.smarterliving = topSmarterLiving;
       this.us = topUS;
       this.world = topWorld;
+
+      console.log(this.health);
+      console.log(this.magazine);
+      console.log(this.opinion);
+      console.log(this.smarterliving);
+      console.log(this.us);
+      console.log(this.world);
     }//end of getBestArticles
 
   }//end of methods
