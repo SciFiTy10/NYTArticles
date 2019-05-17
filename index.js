@@ -227,6 +227,8 @@ Vue.component('best-of-section', {
   //dropdown parent element, button and content as children
   //used tick marks so I could write on multiple lines
   //v-for is used so I can loop through content array in data
+  //used v-if and v-else to determine whether the article url was n/a
+  //if so, no button is given to open a link
   `<div class="best-of-section-container">
       <table>
         <tr>
@@ -247,8 +249,9 @@ Vue.component('best-of-section', {
         </tr>
       </table>
    </div>`,
+   //similar to loaded up top, we use ready for the API call made for the article section
    props: ['ready', 'articles'],
-
+   //here we check whether our ready variable has been set to true before proceeding
    watch: {
      ready: function(){
        if(this.ready){
@@ -256,12 +259,9 @@ Vue.component('best-of-section', {
        }
      }
    },
-
    //set my text in data function so it can be reactive
    data: function() {
      return {
-       header: 'Best Articles by Section ' + this.text,
-       endText: this.text,
        content: [
          { text: 'Section' },
          { text: 'Views' },
@@ -273,31 +273,42 @@ Vue.component('best-of-section', {
    }
 })
 
-//create a new Vue instance
+//create a main Vue instance
 var app = new Vue({
-  //point to the main div
+  //point to the main div in our html
   el: '#app',
   data () {
     return {
       info: '',
       loading: true,
       errored: false,
+      //labels and backup labels are intentionally matched as is data and backupData
+      //the main labels and data properties are reduced when the user unchecks in the filter
+      //the backupLabels and backupData are there so when the user checks a box
+      //labels are reinserted, and the data stays with the correct label
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
       backupLabels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
       data: [],
       backupData: [],
+      //here are our boolean flags mentioned above
+      //loaded is for the main graph api call
+      //ready is for the article api call
       loaded: false,
       ready: false,
+      //default text for the end of the string in the graph header
       text: 'from Yesterday',
       articles: []
     }
   },
+  //on the created property, we launch the loadData method which calls the API for our main graph data
   created: function(){
     this.loadData(1);
   },
   mounted: function(){
     this.ready = true;
   },
+  //this method is for when a new time is selected in the dropdown
+  //this changes the graph text and pushes the number required in the api for time
   methods: {
     newTime: function(id){
       //we are taking this id and setting the new text for the header
@@ -328,12 +339,13 @@ var app = new Vue({
       //now we pass this into the API call to get new results
       this.loadData(id);
     },
+    //onChange is for checking and unchecking the checkbox filters
+    //this manages the bars shown in the graph and the labels on the xAxes
     onChange: function(checked, text){
 
         //we need if-else logic to decide whether to add this to the array or remove it
         //if checked is false
         if(!checked){
-
           //trim the spaces to the left
           text = text.trimLeft();
           //trim the spaces to the right
