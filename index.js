@@ -99,9 +99,11 @@ Vue.component('graph', {
        if(this.loaded){
          console.log(this.labels);
          this.drawChart();
-       }
+       }//end of if
+     },//end of loaded
+     data: function(){
+       this.drawChart();
      }
-
   },
   computed: {
     // a computed getter
@@ -110,8 +112,16 @@ Vue.component('graph', {
       var newString = '';
       newString = this.labels.join(' / ');
       return newString
+    },
+    chartData: function(){
+      return this.data;
     }
   },
+  //start of mounted
+  mounted: function(){
+    this.drawChart();
+
+  },//end of mounted function
 
    //ATTEMPTING TO PIN THE PROP VALUES ABOVE TO LABELS AND DATA
     props: ['labels', 'data', 'loaded', 'text'],
@@ -120,15 +130,13 @@ Vue.component('graph', {
       return {
         endText: this.text,
         header: 'Most Popular NYT Articles of the '+ this.text
-
-        //dataLabels: this.labels,
-        //views: this.totalViews
-
       }//end of return
     },//end of data
     methods: {
-      drawChart: function(text){
-        //console.log('the value of dataLabels is: '+ this.dataLabels);
+      drawChart: function(){
+
+        //console.log('The value of Labels for chart is: '+ this.labels);
+
         var ctx = document.getElementById('viewGraph').getContext('2d');
         var myChart = new Chart(ctx, {
           type: 'bar',
@@ -138,7 +146,8 @@ Vue.component('graph', {
             datasets: [{
               label: '# of Views',
               //data: [12, 19, 3, 5, 2, 3],
-              data: this.data,
+              //data: this.data,
+              data: this.chartData,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -187,13 +196,10 @@ Vue.component('graph', {
                }//end of scales
              }//end of options
            });//end of chart instance
+
+
       }
-    },
-   //start of mounted
-   //mounted: function(){
-
-
-   //},//end of mounted function
+    }//end of methods
 
 
 })//end of component
@@ -246,7 +252,6 @@ var app = new Vue({
   },
   methods: {
     onChange: function(checked, text){
-
         //console.log('Is the box checked? ' + checked);
         //console.log('What does the text say: '+ text);
 
@@ -282,9 +287,15 @@ var app = new Vue({
             //add the newData and overwrite the initial data array
             this.data = newData;
 
+            //set loaded = true because it is a prop which is needed prior to drawChart running
+            this.loaded = false;
+            this.loaded = true;
+
+            //this.myChart.update();
+
             //print the new and improved array
-            console.log(this.labels);
-            console.log(this.data);
+            //console.log(this.labels);
+            //console.log(this.data);
           }
 
         }
@@ -313,7 +324,7 @@ var app = new Vue({
         .then(response => {
           //this.info = response.data.results[0].section
           this.info = response.data.results
-          console.log(this.info.length)
+          //console.log(this.info.length)
           this.getTotalViews(this.info);
         })
         .catch(error => {
@@ -325,7 +336,7 @@ var app = new Vue({
 
     //for pulling the data from the resulting array
     getTotalViews: function(info){
-        console.log(info);
+        //console.log(info);
         //set total variables to stash before we go into the final data array
         //originally had this as var totalHealth, totalMagazine, etc = 0 but
         //it threw undefined issue when I was checking totals
@@ -335,7 +346,7 @@ var app = new Vue({
         var totalSmarterLiving = 0;
         var totalUS = 0;
         var totalWorld = 0;
-        console.log('info length is: ' + info.length);
+        //console.log('info length is: ' + info.length);
         //loop through each of the defaultLabels and get their view count
         for(var i = 0; i < info.length-1; i++){
             //if this.info[i].section ==
@@ -369,7 +380,7 @@ var app = new Vue({
         //console.log('total health views: ' + totalHealth);
         //add these values to the array
         this.data = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
-        console.log(this.data);
+        //console.log(this.data);
         //set loaded to true
         this.loaded = true;
     }//end of defaultData
