@@ -341,8 +341,8 @@ var app = new Vue({
     },
     //onChange is for checking and unchecking the checkbox filters
     //this manages the bars shown in the graph and the labels on the xAxes
+    //a boolean for whether the checkbox is checked, and the label text is passed in
     onChange: function(checked, text){
-
         //we need if-else logic to decide whether to add this to the array or remove it
         //if checked is false
         if(!checked){
@@ -351,7 +351,8 @@ var app = new Vue({
           //trim the spaces to the right
           text = text.trimRight();
 
-          //create a copy of the  labels array
+          //create a copy of the labels array
+          //this is for maintaining good data immutability
           var newLabels = this.labels.slice();
 
           //create a copy of the  data array
@@ -360,7 +361,7 @@ var app = new Vue({
           //get the index of the passed text
           var index = newLabels.indexOf(text);
 
-          //check if index is > -1 we know this is in the array
+          //check if index is > -1 (does this exist in the array)
           if(index > -1){
 
             //then splice that array to remove the element
@@ -374,7 +375,7 @@ var app = new Vue({
             //remove the data for this section
             newData.splice(index, 1);
 
-            //do not sort
+            //DO NOT SORT
             //add the newData and overwrite the initial data array
             this.data = newData;
 
@@ -421,28 +422,29 @@ var app = new Vue({
       const key = 'snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y';
 
       axios
+        //make the call by putting our api request together
         .get(baseURL + timeFrame + middleURL + key)
-        //.get('https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
-        //.get('https://api.nytimes.com/svc/mostpopular/v2/mostviewed/U.S./1.json?api-key=snmdoMKyQOEYiyJdWwg8F6xodSq8uU7y')
+        //handle response
         .then(response => {
           //this.info = response.data.results[0].section
           this.info = response.data.results
-          //console.log(this.info.length)
+          //call the getTotalViews method needed in our main graph
           this.getTotalViews(this.info);
-          //new method here
+          //call the getBestArticles method for using this data to gather top articles
           this.getBestArticles(this.info);
         })
+        //catch any errors
         .catch(error => {
           console.log(error)
           this.errored = true
         })
+        //set loading property to false
         .finally(() => this.loading = false)
     },//end of loadData
 
     //for pulling the data from the resulting array
     getTotalViews: function(info){
-        //console.log(info);
-        //set total variables to stash before we go into the final data array
+        //set total variables to 0 before we go into the final data array
         //originally had this as var totalHealth, totalMagazine, etc = 0 but
         //it threw undefined issue when I was checking totals
         var totalHealth = 0;
@@ -451,7 +453,6 @@ var app = new Vue({
         var totalSmarterLiving = 0;
         var totalUS = 0;
         var totalWorld = 0;
-        //console.log('info length is: ' + info.length);
         //loop through each of the defaultLabels and get their view count
         for(var i = 0; i < info.length-1; i++){
             //if this.info[i].section ==
@@ -482,21 +483,24 @@ var app = new Vue({
               break;
               }
         }//end of for loop
-        //console.log('total health views: ' + totalHealth);
-        //add these values to the array
+
+        //add these total View values to the array
         this.data = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
 
         //copy over this data to the backup array
         this.backupData = this.data.slice();
-        //console.log(this.data);
-        //set loaded to true
 
+        //set loaded to true
+        //this is going to be passed as a prop up to our watch property above
         this.loaded = true;
     },//end of defaultData
 
+    //function for taking our original api response and determining the top articles for each section
+    //here we create objects for each section, and store them all in one array we read from in the
+    //article section under our graph
     getBestArticles: function(info){
-
       //set defaults for all of the highest views thus far
+      //see note above for why I didn't just put in one line
       var highestHealthView = 0;
       var highestMagazineView = 0;
       var highestOpinionView = 0;
@@ -504,7 +508,7 @@ var app = new Vue({
       var highestUSView = 0;
       var highestWorldView = 0;
 
-      //initialize arrays for all sections
+      //initialize objects for all sections
       var topHealth = {section: 'Health'};
       var topMagazine = {section: 'Magazine'};
       var topOpinion = {section: 'Opinion'};
@@ -512,71 +516,71 @@ var app = new Vue({
       var topUS = {section: 'U.S.'};
       var topWorld = {section: 'World'};
 
-      //I need to loop through this and find the top
+      //loop through this and find the top viewed stories
       for(var i = 0; i < info.length-1; i++){
-        //if this.info[i].section ==
+        //switch statement to check for each section
         switch(info[i].section) {
           case 'Health':
-          //check the view count against the highest
+          //check this article's view count against the highest so far
           if(info[i].views > highestHealthView){
-            //set the new highest views
+            //if highest so far, set the new highest views
             highestHealthView = info[i].views;
-            //push everything to the array
+            //push everything to the object
             topHealth.title = info[i].title;
             topHealth.views = info[i].views;
             topHealth.url = info[i].url;
           }
           break;
           case 'Magazine':
-          //check the view count against the highest
+          //check this article's view count against the highest so far
           if(info[i].views > highestMagazineView){
-            //set the new highest views
+            //if highest so far, set the new highest views
             highestMagazineView = info[i].views;
-            //push everything to the array
+            //push everything to the object
             topMagazine.title = info[i].title;
             topMagazine.views = info[i].views;
             topMagazine.url = info[i].url;
           }
           break;
           case 'Opinion':
-          //check the view count against the highest
+          //check this article's view count against the highest so far
           if(info[i].views > highestOpinionView){
-            //set the new highest views
+            //if highest so far, set the new highest views
             highestOpinionView = info[i].views;
-            //push everything to the array
+            //push everything to the object
             topOpinion.title = info[i].title;
             topOpinion.views = info[i].views;
             topOpinion.url = info[i].url;
           }
           break;
           case 'Smarter Living':
-          //check the view count against the highest
+          //check this article's view count against the highest so far
           if(info[i].views > highestSmarterLivingView){
-            //set the new highest views
+            //if highest so far, set the new highest views
             highestSmarterLivingView = info[i].views;
-            //push everything to the array
+            //push everything to the object
             topSmarterLiving.title = info[i].title;
             topSmarterLiving.views = info[i].views;
             topSmarterLiving.url = info[i].url;
           }
           break;
           case 'U.S.':
-          //check the view count against the highest
+          //check this article's view count against the highest so far
           if(info[i].views > highestUSView){
-            //set the new highest views
+            //if highest so far, set the new highest views
             highestUSView = info[i].views;
-            //push everything to the array
+            //push everything to the object
             topUS.title = info[i].title;
             topUS.views = info[i].views;
             topUS.url = info[i].url;
           }
           break;
           case 'World':
-          //set the new highest views
+          //check this article's view count against the highest so far
           highestWorldView = info[i].views;
-          //check the view count against the highest
+          //if highest so far, set the new highest views
           if(info[i].views > highestWorldView){
-            //push everything to the array
+            //push everything to the object
             topWorld.title = info[i].title;
             topWorld.views = info[i].views;
             topWorld.url = info[i].url;
@@ -586,64 +590,44 @@ var app = new Vue({
       }//end of for
 
 
-      //handle if none of them had articles
-      //use an array for all the highest scores then loop through it
-      var highestArray = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
-      //loop through to see if they have 0
-
+      //handle if none of them had articles with views
+      //fill in a default title, views, and url property if so
         if(!(topHealth.hasOwnProperty('views'))){
-          //this doesn't return
           topHealth.title = 'N/A';
           topHealth.views = 0;
           topHealth.url = 'N/A';
         }
         if(!(topMagazine.hasOwnProperty('views'))){
-          //this doesn't return
           topMagazine.title = 'N/A';
           topMagazine.views = 0;
           topMagazine.url = 'N/A';
         }
 
         if(!(topOpinion.hasOwnProperty('views'))){
-          //this doesn't return
           topOpinion.title = 'N/A';
           topOpinion.views = 0;
           topOpinion.url = 'N/A';
         }
         if(!(topSmarterLiving.hasOwnProperty('views'))){
-          //this doesn't return
           topSmarterLiving.title = 'N/A';
           topSmarterLiving.views = 0;
           topSmarterLiving.url = 'N/A';
         }
         if(!(topUS.hasOwnProperty('views'))){
-          //this doesn't return
           topUS.title = 'N/A';
           topUS.views = 0;
           topUS.url = 'N/A';
         }
         if(!(topWorld.hasOwnProperty('views'))){
-          //this doesn't return
           topWorld.title = 'N/A';
           topWorld.views = 0;
           topWorld.url = 'N/A';
         }
 
 
-      //then roll them in order
+      //load the objects for each section into the main articles array
       this.articles = [topHealth, topMagazine, topOpinion, topSmarterLiving, topUS, topWorld];
 
-
-      //testing similar to loaded
-      //this.ready = true;
-
-      /*
-      console.log(topHealth.views);
-      console.log(topMagazine);
-      console.log(topOpinion);
-      console.log(topSmarterLiving);
-      console.log(topUS);
-      console.log(topWorld);*/
     }//end of getBestArticles
 
   }//end of methods
