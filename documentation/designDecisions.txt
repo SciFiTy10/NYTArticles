@@ -1,0 +1,27 @@
+For this project, there were a few decisions I made that I believe were important to produce a great experience for the end user.
+
+1) A high premium on simplicity.
+
+  - This page is simple and direct. There is a navbar greeting, and 4 components with which to act or observe.
+
+2) An active role in guiding focus for the end user
+
+  - Every component is given a gold frame, I did this because I think it draws the user into each decision they can make.
+
+  - Furthermore, inside each decision section (dropdown and filter section) the user is told what they should do.
+
+    There is no getting lost looking for the dropdown options when you are told point blank to navigate to this box.
+
+    Language such as "Select" and "Choose" were intentionally picked so the user didn't have to think.
+
+3) A complete reduction of cognitive overhead.
+
+  - This might be the most underrated thing which I personally seek out when using software!
+
+  - I don't care how goofy it sounds, reducing the dropdown from the normal two clicks to one after a hover
+  makes a huge difference.
+
+  - Multiple clicks on multiple screens leads to more work for the user. I believe what they need in a tool
+  should be served as lightly as possible.
+
+  - Every action you can take on this page only requires one click!
