@@ -244,13 +244,15 @@ var app = new Vue({
       loading: true,
       errored: false,
       labels: ['Health', 'Magazine', 'Opinion', 'Smarter Living', 'U.S.', 'World'],
+      backupLabels: [],
       data: [],
+      backupData: [],
       loaded: false,
       text: 'Last 1 Days'
     }
   },
   created: function(){
-    this.loadData(1, this.labels);
+    this.loadData(1);
   },
   methods: {
     onChange: function(checked, text){
@@ -309,7 +311,7 @@ var app = new Vue({
 
     },
     //for making the default API call
-    loadData: function(time, labels){
+    loadData: function(time){
       //baseURL string
       const baseURL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/';
       //timeframe
@@ -382,6 +384,9 @@ var app = new Vue({
         //console.log('total health views: ' + totalHealth);
         //add these values to the array
         this.data = [totalHealth, totalMagazine, totalOpinion, totalSmarterLiving, totalUS, totalWorld];
+
+        //copy over this data to the backup array
+        this.backupData = this.data.slice();
         //console.log(this.data);
         //set loaded to true
         this.loaded = true;
