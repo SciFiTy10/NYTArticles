@@ -220,7 +220,14 @@ Vue.component('best-of-section', {
           <td>{{ article.section }}</td>
           <td class="viewsAndURL">{{ article.views }}</td>
           <td id="titleColumn">{{ article.title }}</td>
+
+          <div v-if="article.url === 'N/A'">
+            {{ article.url }}
+          </div>
+          <div v-else>
           <td class="viewsAndURL"><a target="_blank" :href="article.url"><img src="https://img.icons8.com/ios-glyphs/30/000000/arrow.png"></a></td>
+          </div>
+
         </tr>
       </table>
    </div>`,
